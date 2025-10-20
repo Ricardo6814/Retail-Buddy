@@ -1,0 +1,1124 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Retail Buddy - Login</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Bootstrap Icons -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet">
+    <style>
+        body {
+            background-color: #f8f9fa;
+            font-family: 'Inter', sans-serif;
+        }
+        .card {
+            border-radius: 1rem;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+            border: none;
+        }
+        .nav-link.active {
+            font-weight: bold;
+            color: #6a1b9a !important;
+            border-bottom: 3px solid #6a1b9a;
+        }
+        .badge-warning { background-color: #f39c12; color: #fff; }
+        .badge-danger { background-color: #e74c3c; color: #fff; }
+        .badge-success { background-color: #2ecc71; color: #fff; }
+        .badge-info { background-color: #3498db; color: #fff; }
+        .chart-container {
+            height: 300px;
+        }
+        .main-content {
+            padding-top: 20px;
+        }
+        
+        /* Login */
+        .login-container {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(135deg, #6a1b9a 0%, #9c4dcc 100%);
+        }
+        .login-card {
+            width: 100%;
+            max-width: 400px;
+            background-color: white;
+            border-radius: 1rem;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+        }
+        .login-header {
+            background-color: #6a1b9a;
+            color: white;
+            padding: 2rem;
+            text-align: center;
+        }
+        .login-body {
+            padding: 2rem;
+        }
+        .login-footer {
+            padding: 1rem 2rem;
+            background-color: #f8f9fa;
+            text-align: center;
+            border-top: 1px solid #e9ecef;
+        }
+        .action-buttons {
+            display: flex;
+            gap: 5px;
+            flex-wrap: wrap;
+        }
+        
+        .hidden {
+            display: none !important;
+        }
+        
+        .absolute {
+            position: absolute;
+        }
+        .top-4 {
+            top: 1rem;
+        }
+        .right-4 {
+            right: 1rem;
+        }
+        .text-4xl {
+            font-size: 2.25rem;
+        }
+        .opacity-50 {
+            opacity: 0.5;
+        }
+    </style>
+</head>
+<body>
+    <!-- Tela de Login -->
+    <div id="login-section" class="login-container">
+        <div class="login-card">
+            <div class="login-header">
+                <h1 class="mb-2"><i class="bi bi-shop me-2"></i>Retail Buddy</h1>
+                <p class="mb-0">Sistema de Gestão de Vendas e Estoque</p>
+            </div>
+            <div class="login-body">
+                <form id="login-form">
+                    <div class="mb-3">
+                        <label for="username" class="form-label">Usuário</label>
+                        <input type="text" class="form-control" id="username" placeholder="Digite seu usuário" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="password" class="form-label">Senha</label>
+                        <input type="password" class="form-control" id="password" placeholder="Digite sua senha" required>
+                    </div>
+                    <div class="mb-3 form-check">
+                        <input type="checkbox" class="form-check-input" id="remember-me">
+                        <label class="form-check-label" for="remember-me">Lembrar-me</label>
+                    </div>
+                    <button type="submit" class="btn btn-primary w-100" style="background-color: #6a1b9a; border-color: #6a1b9a;">
+                        <i class="bi bi-box-arrow-in-right me-2"></i>Entrar
+                    </button>
+                </form>
+            </div>
+            <div class="login-footer">
+                <small class="text-muted">Usuário: qualquer nome | Senha: <strong>admin</strong></small>
+            </div>
+        </div>
+    </div>
+
+    <!-- Sistema Principal -->
+    <div id="main-system" class="hidden">
+        <!-- Navegação -->
+        <nav class="navbar navbar-expand-lg navbar-light bg-white border-bottom shadow-sm sticky-top">
+            <div class="container-fluid">
+                <a class="navbar-brand text-purple-700 font-bold" href="#">
+                    <i class="bi bi-shop me-2"></i>Retail Buddy
+                </a>
+                <div class="collapse navbar-collapse" id="navbarNav">
+                    <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                        <li class="nav-item">
+                            <a class="nav-link" id="dashboard-link" href="#"><i class="bi bi-speedometer2 me-1"></i> Dashboard</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" id="products-link" href="#"><i class="bi bi-box-seam me-1"></i> Produtos</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" id="sales-link" href="#"><i class="bi bi-cart-plus me-1"></i> Vendas</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" id="reports-link" href="#"><i class="bi bi-bar-chart-line me-1"></i> Relatórios</a>
+                        </li>
+                    </ul>
+                    <span class="navbar-text me-3 text-sm text-gray-500">
+                        Usuário: <span id="current-user" class="font-semibold text-gray-700">Administrador</span>
+                    </span>
+                    <button id="logout-btn" class="btn btn-outline-secondary btn-sm">
+                        <i class="bi bi-box-arrow-right me-1"></i>Sair
+                    </button>
+                </div>
+            </div>
+        </nav>
+
+        <!-- Conteúdo -->
+        <div class="container main-content">
+            <!-- Dashboard -->
+            <section id="dashboard-section" class="mb-5">
+                <h2 class="mb-4"><i class="bi bi-speedometer2"></i> Dashboard</h2>
+                
+                <div class="row mb-4">
+                    <div class="col-12">
+                        <div class="card bg-light p-3">
+                            <div class="row g-2">
+                                <div class="col-md-3">
+                                    <button class="btn btn-primary w-100" data-bs-toggle="modal" data-bs-target="#addProductModal">
+                                        <i class="bi bi-plus-circle me-1"></i> Adicionar Produto
+                                    </button>
+                                </div>
+                                <div class="col-md-3">
+                                    <button class="btn btn-success w-100" data-bs-toggle="modal" data-bs-target="#addSaleModal">
+                                        <i class="bi bi-cart-check me-1"></i> Nova Venda
+                                    </button>
+                                </div>
+                                <div class="col-md-3">
+                                    <button class="btn btn-info w-100" data-bs-toggle="modal" data-bs-target="#stockEntryModal">
+                                        <i class="bi bi-box-arrow-in-down me-1"></i> Entrada Estoque
+                                    </button>
+                                </div>
+                                <div class="col-md-3">
+                                    <button class="btn btn-warning w-100" onclick="generateQuickReport()">
+                                        <i class="bi bi-file-earmark-arrow-down me-1"></i> Relatório Rápido
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row g-4">
+                    <div class="col-md-4">
+                        <div class="card bg-purple-600 text-white p-4 position-relative">
+                            <div class="card-body">
+                                <h5 class="card-title text-sm opacity-75">Total de Produtos</h5>
+                                <p class="card-text text-3xl font-bold" id="total-products">0</p>
+                                <i class="bi bi-box-seam position-absolute top-4 right-4 text-4xl opacity-50"></i>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="card bg-pink-600 text-white p-4 position-relative">
+                            <div class="card-body">
+                                <h5 class="card-title text-sm opacity-75">Valor Total em Estoque</h5>
+                                <p class="card-text text-3xl font-bold" id="total-stock-value">R$ 0,00</p>
+                                <i class="bi bi-cash-stack position-absolute top-4 right-4 text-4xl opacity-50"></i>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="card bg-teal-600 text-white p-4 position-relative">
+                            <div class="card-body">
+                                <h5 class="card-title text-sm opacity-75">Vendas de Hoje</h5>
+                                <p class="card-text text-3xl font-bold" id="today-sales">0</p>
+                                <i class="bi bi-calendar-check position-absolute top-4 right-4 text-4xl opacity-50"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row mt-5 g-4">
+                    <div class="col-md-6">
+                        <div class="card">
+                            <div class="card-header bg-white font-semibold text-pink-600 border-bottom d-flex justify-content-between align-items-center">
+                                <span><i class="bi bi-arrow-down-circle me-1"></i> Estoque Baixo</span>
+                                <button class="btn btn-sm btn-outline-secondary" onclick="openStockEntryFromLowStock()">
+                                    <i class="bi bi-box-arrow-in-down me-1"></i> Repor
+                                </button>
+                            </div>
+                            <div class="card-body p-0">
+                                <table class="table table-striped table-hover mb-0" id="low-stock-table">
+                                    <thead>
+                                        <tr>
+                                            <th>Produto</th>
+                                            <th>Qtd.</th>
+                                            <th>Preço</th>
+                                            <th>Ação</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody></tbody>
+                                </table>
+                                <p id="no-low-stock" class="text-center text-gray-500 p-3 hidden">Tudo certo! Nenhum item em estoque baixo.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="card">
+                            <div class="card-header bg-white font-semibold text-teal-600 border-bottom d-flex justify-content-between align-items-center">
+                                <span><i class="bi bi-clock-history me-1"></i> Últimas Vendas</span>
+                                <button class="btn btn-sm btn-outline-primary" onclick="showAllSales()">
+                                    <i class="bi bi-eye me-1"></i> Ver Todas
+                                </button>
+                            </div>
+                            <div class="card-body p-0">
+                                <table class="table table-striped table-hover mb-0" id="recent-sales">
+                                    <thead>
+                                        <tr>
+                                            <th>Produto</th>
+                                            <th>Qtd.</th>
+                                            <th>Total</th>
+                                            <th>Status</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody></tbody>
+                                </table>
+                                <p id="no-recent-sales" class="text-center text-gray-500 p-3 hidden">Nenhuma venda registrada.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Produtos -->
+            <section id="products-section" class="mb-5 hidden">
+                <div class="d-flex justify-content-between align-items-center mb-4">
+                    <h2><i class="bi bi-box-seam me-2"></i> Gestão de Produtos</h2>
+                    <div>
+                        <button class="btn btn-primary me-2" data-bs-toggle="modal" data-bs-target="#addProductModal">
+                            <i class="bi bi-plus-circle me-1"></i> Adicionar Produto
+                        </button>
+                        <button class="btn btn-info" data-bs-toggle="modal" data-bs-target="#stockEntryModal">
+                            <i class="bi bi-box-arrow-in-down me-1"></i> Entrada Estoque
+                        </button>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-body p-0">
+                        <div class="table-responsive">
+                            <table class="table table-striped table-hover mb-0" id="products-table">
+                                <thead class="bg-gray-50">
+                                    <tr>
+                                        <th>Produto</th>
+                                        <th>Estoque</th>
+                                        <th>Preço Unitário</th>
+                                        <th>Valor Total</th>
+                                        <th>Ações</th>
+                                    </tr>
+                                </thead>
+                                <tbody></tbody>
+                            </table>
+                        </div>
+                        <p id="no-products-data" class="text-center text-gray-500 p-3 hidden">Nenhum produto cadastrado.</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Vendas -->
+            <section id="sales-section" class="mb-5 hidden">
+                <div class="d-flex justify-content-between align-items-center mb-4">
+                    <h2><i class="bi bi-cart-plus me-2"></i> Registro de Vendas</h2>
+                    <div>
+                        <button class="btn btn-success me-2" data-bs-toggle="modal" data-bs-target="#addSaleModal">
+                            <i class="bi bi-cart-check me-1"></i> Nova Venda
+                        </button>
+                        <button class="btn btn-warning" onclick="generateSalesReport()">
+                            <i class="bi bi-file-earmark-arrow-down me-1"></i> Relatório
+                        </button>
+                    </div>
+                </div>
+
+                <div class="card mb-4">
+                    <div class="card-body">
+                        <div class="row g-3">
+                            <div class="col-md-4">
+                                <label for="filter-payment-status" class="form-label">Status de Pagamento</label>
+                                <select class="form-select" id="filter-payment-status" onchange="filterSales()">
+                                    <option value="all">Todos</option>
+                                    <option value="pago">Pago</option>
+                                    <option value="pendente">Pendente</option>
+                                </select>
+                            </div>
+                            <div class="col-md-4">
+                                <label for="filter-date" class="form-label">Data</label>
+                                <input type="date" class="form-control" id="filter-date" onchange="filterSales()">
+                            </div>
+                            <div class="col-md-4">
+                                <label class="form-label">&nbsp;</label>
+                                <button class="btn btn-secondary w-100" onclick="clearFilters()">
+                                    <i class="bi bi-arrow-clockwise me-1"></i> Limpar
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-body p-0">
+                        <div class="table-responsive">
+                            <table class="table table-striped table-hover mb-0" id="sales-table">
+                                <thead class="bg-gray-50">
+                                    <tr>
+                                        <th>Data</th>
+                                        <th>Produto</th>
+                                        <th>Qtd.</th>
+                                        <th>Preço Unit.</th>
+                                        <th>Total</th>
+                                        <th>Status</th>
+                                        <th>Ações</th>
+                                    </tr>
+                                </thead>
+                                <tbody></tbody>
+                            </table>
+                        </div>
+                        <p id="no-sales-data" class="text-center text-gray-500 p-3 hidden">Nenhuma venda.</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Relatórios -->
+            <section id="reports-section" class="mb-5 hidden">
+                <div class="d-flex justify-content-between align-items-center mb-4">
+                    <h2><i class="bi bi-bar-chart-line me-2"></i> Relatórios</h2>
+                    <div>
+                        <button class="btn btn-primary me-2" onclick="generateStockReport()">
+                            <i class="bi bi-file-earmark-arrow-down me-1"></i> Estoque
+                        </button>
+                        <button class="btn btn-success" onclick="generateSalesReport()">
+                            <i class="bi bi-file-earmark-arrow-down me-1"></i> Vendas
+                        </button>
+                    </div>
+                </div>
+
+                <div class="row g-4 mb-5">
+                    <div class="col-md-3">
+                        <div class="card bg-white p-4 text-center">
+                            <h5 class="text-sm text-gray-500">Total Vendas</h5>
+                            <p class="text-3xl font-bold text-teal-600" id="report-total-sales">R$ 0,00</p>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="card bg-white p-4 text-center">
+                            <h5 class="text-sm text-gray-500">Itens Vendidos</h5>
+                            <p class="text-3xl font-bold text-pink-600" id="report-items-sold">0</p>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="card bg-white p-4 text-center">
+                            <h5 class="text-sm text-gray-500">Valor Estoque</h5>
+                            <p class="text-3xl font-bold text-purple-600" id="report-total-stock">R$ 0,00</p>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="card bg-white p-4 text-center">
+                            <h5 class="text-sm text-gray-500">Vendas Pendentes</h5>
+                            <p class="text-3xl font-bold text-orange-600" id="report-pending-sales">0</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card mt-5 p-4 bg-gray-50">
+                    <h3 class="mb-3"><i class="bi bi-download me-1"></i> Exportar Dados (CSV)</h3>
+                    <div class="row g-3">
+                        <div class="col-md-4">
+                            <label for="report-type" class="form-label">Tipo de Relatório</label>
+                            <select id="report-type" class="form-select">
+                                <option value="stock">Estoque</option>
+                                <option value="sales">Vendas</option>
+                                <option value="low-stock">Estoque Baixo</option>
+                                <option value="pending-payments">Pendentes</option>
+                            </select>
+                        </div>
+                        <div class="col-md-4">
+                            <label for="report-period" class="form-label">Período</label>
+                            <select id="report-period" class="form-select">
+                                <option value="all">Todo Período</option>
+                                <option value="today">Hoje</option>
+                                <option value="week">7 Dias</option>
+                                <option value="month">Este Mês</option>
+                            </select>
+                        </div>
+                        <div class="col-md-4 d-flex align-items-end">
+                            <button id="generate-report" class="btn btn-info w-full text-white">
+                                <i class="bi bi-file-earmark-arrow-down me-1"></i> Gerar CSV
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+
+        <!-- Modals -->
+        <div class="modal fade" id="addProductModal" tabindex="-1">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+                    <div class="modal-header bg-purple-600 text-white">
+                        <h5 class="modal-title">Adicionar Produto</h5>
+                        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+                    </div>
+                    <div class="modal-body">
+                        <form id="product-form">
+                            <div class="mb-3">
+                                <label for="product-name" class="form-label">Nome do Produto</label>
+                                <input type="text" class="form-control" id="product-name" required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="product-quantity" class="form-label">Quantidade</label>
+                                <input type="number" class="form-control" id="product-quantity" min="0" value="1" required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="product-price" class="form-label">Preço (R$)</label>
+                                <input type="number" class="form-control" id="product-price" min="0.01" step="0.01" value="0.01" required>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                        <button type="button" class="btn btn-primary" id="save-product">Salvar</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="modal fade" id="addSaleModal" tabindex="-1">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+                    <div class="modal-header bg-teal-600 text-white">
+                        <h5 class="modal-title">Nova Venda</h5>
+                        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+                    </div>
+                    <div class="modal-body">
+                        <form id="sale-form">
+                            <div class="mb-3">
+                                <label for="sale-product" class="form-label">Produto</label>
+                                <select class="form-select" id="sale-product" required>
+                                    <option value="">Selecione um produto</option>
+                                </select>
+                                <small class="form-text text-muted" id="product-stock-info">Estoque: 0</small>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6 mb-3">
+                                    <label for="sale-quantity" class="form-label">Quantidade</label>
+                                    <input type="number" class="form-control" id="sale-quantity" min="1" value="1" required>
+                                </div>
+                                <div class="col-md-6 mb-3">
+                                    <label for="sale-price" class="form-label">Preço (R$)</label>
+                                    <input type="number" class="form-control" id="sale-price" min="0.01" step="0.01" required>
+                                </div>
+                            </div>
+                            <div class="mb-3">
+                                <label for="sale-payment-status" class="form-label">Status</label>
+                                <select class="form-select" id="sale-payment-status" required>
+                                    <option value="pago">Pago</option>
+                                    <option value="pendente">Pendente</option>
+                                </select>
+                            </div>
+                            <div class="p-3 bg-light text-center">
+                                <h5 class="mb-0">Total: <span id="sale-total" class="text-teal-600">R$ 0,00</span></h5>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                        <button type="button" class="btn btn-primary" id="save-sale">Registrar</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="modal fade" id="stockEntryModal" tabindex="-1">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+                    <div class="modal-header bg-secondary text-white">
+                        <h5 class="modal-title">Entrada de Estoque</h5>
+                        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+                    </div>
+                    <div class="modal-body">
+                        <form id="stock-entry-form">
+                            <div class="mb-3">
+                                <label for="stock-product-select" class="form-label">Produto</label>
+                                <select class="form-select" id="stock-product-select" required>
+                                    <option value="">Selecione um produto</option>
+                                </select>
+                            </div>
+                            <div class="mb-3">
+                                <label for="stock-product-name" class="form-label">Produto</label>
+                                <input type="text" class="form-control" id="stock-product-name" disabled>
+                            </div>
+                            <div class="mb-3">
+                                <label for="stock-current-quantity" class="form-label">Estoque Atual</label>
+                                <input type="number" class="form-control" id="stock-current-quantity" disabled>
+                            </div>
+                            <div class="mb-3">
+                                <label for="stock-entry-quantity" class="form-label">Quantidade</label>
+                                <input type="number" class="form-control" id="stock-entry-quantity" min="1" value="1" required>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                        <button type="button" class="btn btn-primary" id="save-stock-entry">Registrar</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Toast Container -->
+        <div id="toast-container" class="position-fixed top-0 end-0 p-3" style="z-index: 1080;"></div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        // Configurações
+        const LOW_STOCK_THRESHOLD = 5;
+        let products = [];
+        let sales = [];
+        let currentUser = null;
+        let filteredSales = [];
+
+        // Elementos
+        const sections = {
+            dashboard: document.getElementById('dashboard-section'),
+            products: document.getElementById('products-section'),
+            sales: document.getElementById('sales-section'),
+            reports: document.getElementById('reports-section')
+        };
+        
+        const navLinks = {
+            dashboard: document.getElementById('dashboard-link'),
+            products: document.getElementById('products-link'),
+            sales: document.getElementById('sales-link'),
+            reports: document.getElementById('reports-link')
+        };
+
+        // Inicialização
+        document.addEventListener('DOMContentLoaded', function() {
+            console.log('Sistema iniciando...');
+            
+            // Verificar login
+            const loggedInUser = localStorage.getItem('retailBuddyUser');
+            if (loggedInUser) {
+                currentUser = loggedInUser;
+                document.getElementById('current-user').textContent = currentUser;
+                showMainSystem();
+            }
+            
+            // Login
+            document.getElementById('login-form').addEventListener('submit', function(e) {
+                e.preventDefault();
+                handleLogin();
+            });
+            
+            // Logout
+            document.getElementById('logout-btn').addEventListener('click', function() {
+                performLogout();
+            });
+            
+            // Navegação
+            setupNavigation();
+            setupModals();
+        });
+
+        function handleLogin() {
+            const username = document.getElementById('username').value.trim();
+            const password = document.getElementById('password').value;
+            
+            if (!username || !password) {
+                showToast('Preencha todos os campos', 'danger');
+                return;
+            }
+            
+            if (password === 'admin') {
+                currentUser = username;
+                localStorage.setItem('retailBuddyUser', username);
+                document.getElementById('current-user').textContent = username;
+                showMainSystem();
+                showToast(`Bem-vindo, ${username}!`);
+            } else {
+                showToast('Senha incorreta! Use "admin"', 'danger');
+            }
+        }
+
+        function performLogout() {
+            localStorage.removeItem('retailBuddyUser');
+            currentUser = null;
+            document.getElementById('main-system').classList.add('hidden');
+            document.getElementById('login-section').style.display = 'flex';
+            document.getElementById('login-form').reset();
+            showToast('Logout realizado!', 'info');
+        }
+
+        function showMainSystem() {
+            document.getElementById('login-section').style.display = 'none';
+            document.getElementById('main-system').classList.remove('hidden');
+            
+            loadProducts();
+            loadSales();
+            showSection('dashboard');
+        }
+
+        function setupNavigation() {
+            Object.keys(navLinks).forEach(key => {
+                navLinks[key].addEventListener('click', function(e) {
+                    e.preventDefault();
+                    showSection(key);
+                });
+            });
+        }
+
+        function showSection(sectionName) {
+            Object.keys(sections).forEach(key => {
+                sections[key].classList.add('hidden');
+                navLinks[key].classList.remove('active', 'text-purple-700');
+            });
+            
+            sections[sectionName].classList.remove('hidden');
+            navLinks[sectionName].classList.add('active', 'text-purple-700');
+            
+            if (sectionName === 'dashboard') updateDashboard();
+            if (sectionName === 'products') renderProductTable();
+            if (sectionName === 'sales') {
+                populateSaleProductSelect();
+                filterSales();
+            }
+            if (sectionName === 'reports') updateReports();
+        }
+
+        // Sistema de dados
+        function saveProducts() {
+            localStorage.setItem('retailBuddyProducts', JSON.stringify(products));
+        }
+
+        function loadProducts() {
+            const saved = localStorage.getItem('retailBuddyProducts');
+            products = saved ? JSON.parse(saved) : [];
+        }
+
+        function saveSales() {
+            localStorage.setItem('retailBuddySales', JSON.stringify(sales));
+        }
+
+        function loadSales() {
+            const saved = localStorage.getItem('retailBuddySales');
+            sales = saved ? JSON.parse(saved) : [];
+            filteredSales = [...sales];
+        }
+
+        function generateId() {
+            return Date.now().toString(36) + Math.random().toString(36).substr(2);
+        }
+
+        function formatCurrency(value) {
+            return `R$ ${parseFloat(value).toFixed(2).replace('.', ',').replace(/\B(?=(\d{3})+(?!\d))/g, '.')}`;
+        }
+
+        function showToast(message, type = 'success') {
+            const toastHtml = `
+                <div class="toast align-items-center text-white bg-${type} border-0" role="alert">
+                    <div class="d-flex">
+                        <div class="toast-body">${message}</div>
+                        <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast"></button>
+                    </div>
+                </div>
+            `;
+            
+            const container = document.getElementById('toast-container');
+            container.insertAdjacentHTML('beforeend', toastHtml);
+            
+            const toast = new bootstrap.Toast(container.lastElementChild);
+            toast.show();
+            
+            container.lastElementChild.addEventListener('hidden.bs.toast', function() {
+                this.remove();
+            });
+        }
+
+        // Dashboard
+        function updateDashboard() {
+            const totalProducts = products.length;
+            const totalStockValue = products.reduce((sum, p) => sum + (p.quantidade * p.preco), 0);
+            const today = new Date().toISOString().split('T')[0];
+            const todaySales = sales.filter(s => s.data.startsWith(today)).length;
+
+            document.getElementById('total-products').textContent = totalProducts;
+            document.getElementById('total-stock-value').textContent = formatCurrency(totalStockValue);
+            document.getElementById('today-sales').textContent = todaySales;
+
+            // Estoque baixo
+            const lowStockProducts = products.filter(p => p.quantidade <= LOW_STOCK_THRESHOLD);
+            const lowStockTable = document.getElementById('low-stock-table').querySelector('tbody');
+            lowStockTable.innerHTML = '';
+            
+            lowStockProducts.forEach(p => {
+                const row = lowStockTable.insertRow();
+                row.innerHTML = `
+                    <td>${p.nome}</td>
+                    <td><span class="badge ${p.quantidade === 0 ? 'badge-danger' : 'badge-warning'}">${p.quantidade}</span></td>
+                    <td>${formatCurrency(p.preco)}</td>
+                    <td><button class="btn btn-sm btn-info" onclick="quickStockEntry('${p.id}')">Repor</button></td>
+                `;
+            });
+            
+            document.getElementById('no-low-stock').classList.toggle('hidden', lowStockProducts.length > 0);
+
+            // Vendas recentes
+            const recentSales = sales.slice().sort((a, b) => new Date(b.data) - new Date(a.data)).slice(0, 5);
+            const recentSalesTable = document.getElementById('recent-sales').querySelector('tbody');
+            recentSalesTable.innerHTML = '';
+            
+            recentSales.forEach(s => {
+                const product = products.find(p => p.id === s.produtoId);
+                const statusBadge = s.statusPagamento === 'pago' ? 'badge-success' : 'badge-warning';
+                const row = recentSalesTable.insertRow();
+                row.innerHTML = `
+                    <td>${product ? product.nome : 'Produto Deletado'}</td>
+                    <td>${s.quantidade}</td>
+                    <td>${formatCurrency(s.valorTotal)}</td>
+                    <td><span class="badge ${statusBadge}">${s.statusPagamento}</span></td>
+                `;
+            });
+            
+            document.getElementById('no-recent-sales').classList.toggle('hidden', recentSales.length > 0);
+        }
+
+        // Produtos
+        function renderProductTable() {
+            const tableBody = document.getElementById('products-table').querySelector('tbody');
+            tableBody.innerHTML = '';
+            
+            products.forEach(p => {
+                const totalValue = p.quantidade * p.preco;
+                const statusBadge = p.quantidade <= LOW_STOCK_THRESHOLD 
+                    ? `<span class="badge ${p.quantidade === 0 ? 'badge-danger' : 'badge-warning'} ms-2">Baixo</span>`
+                    : `<span class="badge badge-success ms-2">OK</span>`;
+                
+                const row = tableBody.insertRow();
+                row.innerHTML = `
+                    <td>${p.nome} ${statusBadge}</td>
+                    <td>${p.quantidade}</td>
+                    <td>${formatCurrency(p.preco)}</td>
+                    <td>${formatCurrency(totalValue)}</td>
+                    <td>
+                        <div class="action-buttons">
+                            <button class="btn btn-sm btn-info" onclick="editProduct('${p.id}')">Editar</button>
+                            <button class="btn btn-sm btn-secondary" onclick="openStockEntryModal('${p.id}')">Estoque</button>
+                            <button class="btn btn-sm btn-danger" onclick="deleteProduct('${p.id}')">Excluir</button>
+                        </div>
+                    </td>
+                `;
+            });
+            
+            document.getElementById('no-products-data').classList.toggle('hidden', products.length > 0);
+        }
+
+        function editProduct(id) {
+            const product = products.find(p => p.id === id);
+            if (product) {
+                // Implementar edição
+                showToast('Edição em desenvolvimento', 'info');
+            }
+        }
+
+        function deleteProduct(id) {
+            if (confirm('Tem certeza que deseja excluir este produto?')) {
+                products = products.filter(p => p.id !== id);
+                saveProducts();
+                renderProductTable();
+                updateDashboard();
+                showToast('Produto excluído!', 'danger');
+            }
+        }
+
+        // Vendas
+        function filterSales() {
+            const statusFilter = document.getElementById('filter-payment-status').value;
+            const dateFilter = document.getElementById('filter-date').value;
+
+            filteredSales = sales.filter(s => {
+                const statusMatch = statusFilter === 'all' || s.statusPagamento === statusFilter;
+                const dateMatch = !dateFilter || s.data.startsWith(dateFilter);
+                return statusMatch && dateMatch;
+            });
+
+            renderSalesTable();
+        }
+
+        function clearFilters() {
+            document.getElementById('filter-payment-status').value = 'all';
+            document.getElementById('filter-date').value = '';
+            filterSales();
+        }
+
+        function renderSalesTable() {
+            const tableBody = document.getElementById('sales-table').querySelector('tbody');
+            tableBody.innerHTML = '';
+            
+            filteredSales.forEach(s => {
+                const product = products.find(p => p.id === s.produtoId);
+                const statusBadge = s.statusPagamento === 'pago' ? 'badge-success' : 'badge-warning';
+                const row = tableBody.insertRow();
+                row.innerHTML = `
+                    <td>${new Date(s.data).toLocaleDateString('pt-BR')}</td>
+                    <td>${product ? product.nome : 'Produto Deletado'}</td>
+                    <td>${s.quantidade}</td>
+                    <td>${formatCurrency(s.valorUnitario)}</td>
+                    <td>${formatCurrency(s.valorTotal)}</td>
+                    <td><span class="badge ${statusBadge}">${s.statusPagamento}</span></td>
+                    <td>
+                        <button class="btn btn-sm btn-danger" onclick="cancelSale('${s.id}')">Cancelar</button>
+                    </td>
+                `;
+            });
+            
+            document.getElementById('no-sales-data').classList.toggle('hidden', filteredSales.length > 0);
+        }
+
+        function cancelSale(saleId) {
+            const sale = sales.find(s => s.id === saleId);
+            if (sale && confirm('Cancelar esta venda?')) {
+                sales = sales.filter(s => s.id !== saleId);
+                const product = products.find(p => p.id === sale.produtoId);
+                if (product) product.quantidade += sale.quantidade;
+                saveSales();
+                saveProducts();
+                filterSales();
+                updateDashboard();
+                showToast('Venda cancelada!', 'info');
+            }
+        }
+
+        // Relatórios
+        function updateReports() {
+            const totalSales = sales.reduce((sum, s) => sum + s.valorTotal, 0);
+            const itemsSold = sales.reduce((sum, s) => sum + s.quantidade, 0);
+            const totalStock = products.reduce((sum, p) => sum + (p.quantidade * p.preco), 0);
+            const pendingSales = sales.filter(s => s.statusPagamento === 'pendente').length;
+
+            document.getElementById('report-total-sales').textContent = formatCurrency(totalSales);
+            document.getElementById('report-items-sold').textContent = itemsSold;
+            document.getElementById('report-total-stock').textContent = formatCurrency(totalStock);
+            document.getElementById('report-pending-sales').textContent = pendingSales;
+        }
+
+        // Modals
+        function setupModals() {
+            // Adicionar Produto
+            document.getElementById('save-product').addEventListener('click', function() {
+                const name = document.getElementById('product-name').value;
+                const quantity = parseInt(document.getElementById('product-quantity').value);
+                const price = parseFloat(document.getElementById('product-price').value);
+                
+                if (name && quantity >= 0 && price > 0) {
+                    products.push({
+                        id: generateId(),
+                        nome: name,
+                        quantidade: quantity,
+                        preco: price
+                    });
+                    saveProducts();
+                    bootstrap.Modal.getInstance(document.getElementById('addProductModal')).hide();
+                    renderProductTable();
+                    updateDashboard();
+                    showToast('Produto adicionado!');
+                }
+            });
+
+            // Nova Venda
+            document.getElementById('save-sale').addEventListener('click', function() {
+                const productId = document.getElementById('sale-product').value;
+                const quantity = parseInt(document.getElementById('sale-quantity').value);
+                const price = parseFloat(document.getElementById('sale-price').value);
+                const status = document.getElementById('sale-payment-status').value;
+                
+                const product = products.find(p => p.id === productId);
+                if (!product || product.quantidade < quantity) {
+                    showToast('Estoque insuficiente!', 'danger');
+                    return;
+                }
+                
+                product.quantidade -= quantity;
+                sales.push({
+                    id: generateId(),
+                    produtoId: productId,
+                    quantidade: quantity,
+                    valorUnitario: price,
+                    valorTotal: quantity * price,
+                    statusPagamento: status,
+                    data: new Date().toISOString()
+                });
+                
+                saveProducts();
+                saveSales();
+                bootstrap.Modal.getInstance(document.getElementById('addSaleModal')).hide();
+                filterSales();
+                updateDashboard();
+                showToast('Venda registrada!');
+            });
+
+            // Entrada Estoque
+            document.getElementById('save-stock-entry').addEventListener('click', function() {
+                const productId = document.getElementById('stock-product-select').value;
+                const quantity = parseInt(document.getElementById('stock-entry-quantity').value);
+                
+                const product = products.find(p => p.id === productId);
+                if (product) {
+                    product.quantidade += quantity;
+                    saveProducts();
+                    bootstrap.Modal.getInstance(document.getElementById('stockEntryModal')).hide();
+                    renderProductTable();
+                    updateDashboard();
+                    showToast('Estoque atualizado!');
+                }
+            });
+
+            // Select de produtos para venda
+            document.getElementById('addSaleModal').addEventListener('show.bs.modal', function() {
+                const select = document.getElementById('sale-product');
+                select.innerHTML = '<option value="">Selecione um produto</option>';
+                products.forEach(p => {
+                    const option = document.createElement('option');
+                    option.value = p.id;
+                    option.textContent = `${p.nome} (Estoque: ${p.quantidade})`;
+                    option.disabled = p.quantidade <= 0;
+                    select.appendChild(option);
+                });
+            });
+
+            // Select de produtos para estoque
+            document.getElementById('stockEntryModal').addEventListener('show.bs.modal', function() {
+                const select = document.getElementById('stock-product-select');
+                select.innerHTML = '<option value="">Selecione um produto</option>';
+                products.forEach(p => {
+                    const option = document.createElement('option');
+                    option.value = p.id;
+                    option.textContent = `${p.nome} (Estoque: ${p.quantidade})`;
+                    select.appendChild(option);
+                });
+            });
+
+            // Atualizar info do produto selecionado no estoque
+            document.getElementById('stock-product-select').addEventListener('change', function() {
+                const product = products.find(p => p.id === this.value);
+                if (product) {
+                    document.getElementById('stock-product-name').value = product.nome;
+                    document.getElementById('stock-current-quantity').value = product.quantidade;
+                }
+            });
+
+            // Atualizar total da venda
+            document.getElementById('sale-quantity').addEventListener('input', updateSaleTotal);
+            document.getElementById('sale-price').addEventListener('input', updateSaleTotal);
+            document.getElementById('sale-product').addEventListener('change', function() {
+                const product = products.find(p => p.id === this.value);
+                if (product) {
+                    document.getElementById('sale-price').value = product.preco;
+                    updateSaleTotal();
+                }
+            });
+        }
+
+        function updateSaleTotal() {
+            const quantity = parseInt(document.getElementById('sale-quantity').value) || 0;
+            const price = parseFloat(document.getElementById('sale-price').value) || 0;
+            document.getElementById('sale-total').textContent = formatCurrency(quantity * price);
+        }
+
+        function populateSaleProductSelect() {
+            const select = document.getElementById('sale-product');
+            select.innerHTML = '<option value="">Selecione um produto</option>';
+            products.forEach(p => {
+                const option = document.createElement('option');
+                option.value = p.id;
+                option.textContent = `${p.nome} (Estoque: ${p.quantidade})`;
+                option.disabled = p.quantidade <= 0;
+                select.appendChild(option);
+            });
+        }
+
+        function openStockEntryModal(productId) {
+            populateStockProductSelect();
+            document.getElementById('stock-product-select').value = productId;
+            document.getElementById('stock-product-select').dispatchEvent(new Event('change'));
+            new bootstrap.Modal(document.getElementById('stockEntryModal')).show();
+        }
+
+        function populateStockProductSelect() {
+            const select = document.getElementById('stock-product-select');
+            select.innerHTML = '<option value="">Selecione um produto</option>';
+            products.forEach(p => {
+                const option = document.createElement('option');
+                option.value = p.id;
+                option.textContent = `${p.nome} (Estoque: ${p.quantidade})`;
+                select.appendChild(option);
+            });
+        }
+
+        function quickStockEntry(productId) {
+            openStockEntryModal(productId);
+        }
+
+        function openStockEntryFromLowStock() {
+            const lowStockProducts = products.filter(p => p.quantidade <= LOW_STOCK_THRESHOLD);
+            if (lowStockProducts.length > 0) {
+                populateStockProductSelect();
+                new bootstrap.Modal(document.getElementById('stockEntryModal')).show();
+            } else {
+                showToast('Nenhum produto com estoque baixo', 'info');
+            }
+        }
+
+        function showAllSales() {
+            showSection('sales');
+        }
+
+        // Relatórios CSV (simplificado)
+        function generateQuickReport() {
+            document.getElementById('report-type').value = 'sales';
+            document.getElementById('report-period').value = 'today';
+            generateCSVReport();
+        }
+
+        function generateStockReport() {
+            document.getElementById('report-type').value = 'stock';
+            document.getElementById('report-period').value = 'all';
+            generateCSVReport();
+        }
+
+        function generateSalesReport() {
+            document.getElementById('report-type').value = 'sales';
+            document.getElementById('report-period').value = 'all';
+            generateCSVReport();
+        }
+
+        document.getElementById('generate-report').addEventListener('click', generateCSVReport);
+
+        function generateCSVReport() {
+            const type = document.getElementById('report-type').value;
+            const period = document.getElementById('report-period').value;
+            
+            let csv = '';
+            let filename = '';
+            
+            if (type === 'stock') {
+                csv = 'Produto,Quantidade,Preço,Valor Total\n';
+                products.forEach(p => {
+                    csv += `"${p.nome}",${p.quantidade},${p.preco},${p.quantidade * p.preco}\n`;
+                });
+                filename = 'estoque.csv';
+            } else if (type === 'sales') {
+                csv = 'Data,Produto,Quantidade,Total,Status\n';
+                sales.forEach(s => {
+                    const product = products.find(p => p.id === s.produtoId);
+                    csv += `"${new Date(s.data).toLocaleDateString()}","${product ? product.nome : 'N/A'}",${s.quantidade},${s.valorTotal},${s.statusPagamento}\n`;
+                });
+                filename = 'vendas.csv';
+            }
+            
+            if (csv) {
+                const blob = new Blob(["\uFEFF" + csv], { type: 'text/csv;charset=utf-8;' });
+                const link = document.createElement('a');
+                link.download = filename;
+                link.href = URL.createObjectURL(blob);
+                link.click();
+                showToast('Relatório gerado!');
+            }
+        }
+    </script>
+</body>
+</html>
