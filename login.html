@@ -3,2050 +3,1122 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Betoneira Caldas - Sistema de Aluguel</title>
+    <title>Retail Buddy - Login</title>
+    <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Bootstrap Icons -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
     <style>
-        :root {
-            --primary: #1a3a4a;
-            --primary-light: #234d61;
-            --accent: #f0a500;
-            --accent-hover: #d4920a;
-            --success: #17a86e;
-            --danger: #e03c3c;
-            --warning: #f0a500;
-            --info: #3b82f6;
-            --surface: #ffffff;
-            --surface-2: #f7f8fa;
-            --border: #e5e9ed;
-            --text: #1c2b36;
-            --text-muted: #6b7f8c;
-            --sidebar-width: 260px;
-        }
-
-        * { box-sizing: border-box; }
-
         body {
-            font-family: 'DM Sans', sans-serif;
-            background-color: var(--surface-2);
-            color: var(--text);
-            margin: 0;
+            background-color: #f8f9fa;
+            font-family: 'Inter', sans-serif;
         }
-
-        /* ── LOGIN SCREEN ── */
+        .card {
+            border-radius: 1rem;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+            border: none;
+        }
+        .nav-link.active {
+            font-weight: bold;
+            color: #6a1b9a !important;
+            border-bottom: 3px solid #6a1b9a;
+        }
+        .badge-warning { background-color: #f39c12; color: #fff; }
+        .badge-danger { background-color: #e74c3c; color: #fff; }
+        .badge-success { background-color: #2ecc71; color: #fff; }
+        .badge-info { background-color: #3498db; color: #fff; }
+        .chart-container {
+            height: 300px;
+        }
+        .main-content {
+            padding-top: 20px;
+        }
+        
+        /* Login */
         .login-container {
             min-height: 100vh;
             display: flex;
             align-items: center;
             justify-content: center;
-            background: linear-gradient(135deg, #1a3a4a 0%, #234d61 100%);
-            padding: 20px;
+            background: linear-gradient(135deg, #6a1b9a 0%, #9c4dcc 100%);
         }
-
         .login-card {
             width: 100%;
-            max-width: 420px;
+            max-width: 400px;
             background-color: white;
-            border-radius: 20px;
-            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
-            overflow: hidden;
+            border-radius: 1rem;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
         }
-
         .login-header {
-            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-light) 100%);
+            background-color: #6a1b9a;
             color: white;
-            padding: 3rem 2rem 2rem;
+            padding: 2rem;
             text-align: center;
-            position: relative;
         }
-
-        .login-header::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.05'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
-            opacity: 0.4;
-        }
-
-        .login-brand-icon {
-            width: 80px;
-            height: 80px;
-            background: var(--accent);
-            border-radius: 20px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 2.5rem;
-            color: var(--primary);
-            margin: 0 auto 1.5rem;
-            box-shadow: 0 10px 30px rgba(240, 165, 0, 0.3);
-            position: relative;
-            z-index: 1;
-        }
-
-        .login-header h1 {
-            font-size: 1.75rem;
-            font-weight: 700;
-            margin: 0 0 0.5rem;
-            position: relative;
-            z-index: 1;
-        }
-
-        .login-header p {
-            color: rgba(255, 255, 255, 0.8);
-            font-size: 0.95rem;
-            margin: 0;
-            position: relative;
-            z-index: 1;
-        }
-
         .login-body {
-            padding: 2.5rem 2rem;
+            padding: 2rem;
         }
-
-        .login-body .form-label {
-            font-weight: 600;
-            color: var(--text);
-            margin-bottom: 0.5rem;
-            font-size: 0.875rem;
-        }
-
-        .login-body .form-control {
-            border: 2px solid var(--border);
-            border-radius: 10px;
-            padding: 0.75rem 1rem;
-            font-size: 0.95rem;
-            transition: all 0.2s ease;
-        }
-
-        .login-body .form-control:focus {
-            border-color: var(--accent);
-            box-shadow: 0 0 0 4px rgba(240, 165, 0, 0.1);
-        }
-
-        .login-body .form-check-label {
-            font-size: 0.875rem;
-            color: var(--text-muted);
-        }
-
-        .login-body .btn-login {
-            background: var(--accent);
-            color: var(--primary);
-            border: none;
-            border-radius: 10px;
-            padding: 0.875rem;
-            font-size: 1rem;
-            font-weight: 700;
-            width: 100%;
-            transition: all 0.2s ease;
-            margin-top: 1rem;
-        }
-
-        .login-body .btn-login:hover {
-            background: var(--accent-hover);
-            transform: translateY(-2px);
-            box-shadow: 0 8px 20px rgba(240, 165, 0, 0.3);
-        }
-
         .login-footer {
-            padding: 1.5rem 2rem;
-            background-color: var(--surface-2);
+            padding: 1rem 2rem;
+            background-color: #f8f9fa;
             text-align: center;
-            border-top: 1px solid var(--border);
+            border-top: 1px solid #e9ecef;
         }
-
-        .login-footer small {
-            color: var(--text-muted);
-            font-size: 0.8rem;
+        .action-buttons {
+            display: flex;
+            gap: 5px;
+            flex-wrap: wrap;
         }
-
+        
         .hidden {
             display: none !important;
         }
-
-        /* ── SIDEBAR ── */
-        .sidebar {
-            position: fixed;
-            top: 0; left: 0;
-            width: var(--sidebar-width);
-            height: 100vh;
-            background: var(--primary);
-            display: flex;
-            flex-direction: column;
-            padding: 0;
-            z-index: 200;
-            box-shadow: 4px 0 20px rgba(0,0,0,0.15);
-            transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-        }
-
-        .sidebar-brand {
-            padding: 28px 24px 24px;
-            border-bottom: 1px solid rgba(255,255,255,0.08);
-        }
-
-        .sidebar-brand-icon {
-            width: 44px; height: 44px;
-            background: var(--accent);
-            border-radius: 12px;
-            display: flex; align-items: center; justify-content: center;
-            font-size: 1.25rem;
-            color: var(--primary);
-            margin-bottom: 12px;
-            font-weight: 700;
-        }
-
-        .sidebar-brand h5 {
-            color: #fff;
-            font-weight: 700;
-            font-size: 1.05rem;
-            margin: 0 0 2px;
-            letter-spacing: -0.3px;
-        }
-
-        .sidebar-brand p {
-            color: rgba(255,255,255,0.45);
-            font-size: 0.72rem;
-            margin: 0;
-            letter-spacing: 0.5px;
-            text-transform: uppercase;
-        }
-
-        .sidebar-nav {
-            flex: 1;
-            padding: 16px 12px;
-            overflow-y: auto;
-        }
-
-        .sidebar-section-label {
-            color: rgba(255,255,255,0.3);
-            font-size: 0.65rem;
-            font-weight: 600;
-            letter-spacing: 1.2px;
-            text-transform: uppercase;
-            padding: 4px 12px 8px;
-            margin-top: 8px;
-        }
-
-        .nav-link {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            color: rgba(255,255,255,0.6);
-            border-radius: 10px;
-            padding: 10px 14px;
-            margin-bottom: 2px;
-            font-size: 0.875rem;
-            font-weight: 500;
-            transition: all 0.18s ease;
-            text-decoration: none;
-        }
-
-        .nav-link i {
-            font-size: 1rem;
-            width: 20px;
-            text-align: center;
-        }
-
-        .nav-link:hover {
-            background: rgba(255,255,255,0.08);
-            color: #fff;
-        }
-
-        .nav-link.active {
-            background: var(--accent);
-            color: var(--primary);
-            font-weight: 600;
-        }
-
-        .nav-link.active i { color: var(--primary); }
-
-        .sidebar-footer {
-            padding: 16px 12px;
-            border-top: 1px solid rgba(255,255,255,0.08);
-        }
-
-        .sidebar-user {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            padding: 8px 12px;
-            border-radius: 10px;
-            background: rgba(255,255,255,0.06);
-        }
-
-        .user-avatar {
-            width: 34px; height: 34px;
-            background: var(--accent);
-            border-radius: 50%;
-            display: flex; align-items: center; justify-content: center;
-            font-size: 0.8rem;
-            font-weight: 700;
-            color: var(--primary);
-            flex-shrink: 0;
-        }
-
-        .user-name { color: #fff; font-size: 0.82rem; font-weight: 600; }
-        .user-role { color: rgba(255,255,255,0.4); font-size: 0.7rem; }
-
-        /* ── OVERLAY ── */
-        .sidebar-overlay {
-            display: none;
-            position: fixed;
-            inset: 0;
-            background: rgba(0,0,0,0.45);
-            z-index: 150;
-            opacity: 0;
-            transition: opacity 0.3s ease;
-        }
-
-        .sidebar-overlay.visible {
-            display: block;
-            opacity: 1;
-        }
-
-        /* ── HAMBURGER ── */
-        .hamburger-btn {
-            display: none;
-            background: none;
-            border: none;
-            cursor: pointer;
-            padding: 6px;
-            border-radius: 8px;
-            transition: background 0.15s;
-            flex-direction: column;
-            gap: 5px;
-            align-items: center;
-            justify-content: center;
-            width: 38px; height: 38px;
-        }
-
-        .hamburger-btn:hover { background: var(--surface-2); }
-
-        .hamburger-btn .bar {
-            display: block;
-            width: 22px;
-            height: 2.5px;
-            background: var(--text);
-            border-radius: 2px;
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-            transform-origin: center;
-        }
-
-        .hamburger-btn.open .bar:nth-child(1) {
-            transform: translateY(7.5px) rotate(45deg);
-        }
-        .hamburger-btn.open .bar:nth-child(2) {
-            opacity: 0;
-            transform: scaleX(0);
-        }
-        .hamburger-btn.open .bar:nth-child(3) {
-            transform: translateY(-7.5px) rotate(-45deg);
-        }
-
-        /* ── SIDEBAR CLOSE BTN (mobile) ── */
-        .sidebar-close {
-            display: none;
+        
+        .absolute {
             position: absolute;
-            top: 16px;
-            right: 16px;
-            background: rgba(255,255,255,0.1);
-            border: none;
-            color: #fff;
-            width: 32px; height: 32px;
-            border-radius: 8px;
-            cursor: pointer;
-            font-size: 1rem;
-            align-items: center;
-            justify-content: center;
-            transition: background 0.15s;
         }
-        .sidebar-close:hover { background: rgba(255,255,255,0.2); }
-
-        /* ── MAIN ── */
-        .main-wrapper {
-            margin-left: var(--sidebar-width);
-            min-height: 100vh;
+        .top-4 {
+            top: 1rem;
         }
-
-        .topbar {
-            background: #fff;
-            border-bottom: 1px solid var(--border);
-            padding: 14px 32px;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            position: sticky;
-            top: 0;
-            z-index: 50;
+        .right-4 {
+            right: 1rem;
         }
-
-        .topbar-left {
-            display: flex;
-            align-items: center;
-            gap: 12px;
+        .text-4xl {
+            font-size: 2.25rem;
         }
-
-        .topbar-title {
-            font-size: 1.1rem;
-            font-weight: 700;
-            color: var(--text);
-        }
-
-        .topbar-actions { 
-            display: flex; 
-            align-items: center; 
-            gap: 10px; 
-        }
-
-        .btn-logout {
-            background: var(--surface-2);
-            color: var(--text);
-            border: 1px solid var(--border);
-            border-radius: 8px;
-            padding: 6px 14px;
-            font-size: 0.82rem;
-            font-weight: 600;
-            display: inline-flex;
-            align-items: center;
-            gap: 6px;
-            transition: all 0.15s ease;
-        }
-
-        .btn-logout:hover {
-            background: var(--border);
-            color: var(--text);
-        }
-
-        .page-content { padding: 28px 32px; }
-
-        /* ── CARDS ── */
-        .card {
-            background: #fff;
-            border: 1px solid var(--border);
-            border-radius: 14px;
-            box-shadow: 0 1px 4px rgba(0,0,0,0.04);
-        }
-
-        .card-header {
-            background: transparent;
-            border-bottom: 1px solid var(--border);
-            padding: 16px 20px;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            border-radius: 14px 14px 0 0 !important;
-        }
-
-        .card-header-title {
-            font-size: 0.9rem;
-            font-weight: 600;
-            color: var(--text);
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
-
-        .card-header-title i { color: var(--accent); font-size: 1rem; }
-
-        .card-body { padding: 20px; }
-
-        /* ── STAT CARDS ── */
-        .stat-card {
-            background: #fff;
-            border: 1px solid var(--border);
-            border-radius: 14px;
-            padding: 22px;
-            display: flex;
-            align-items: flex-start;
-            gap: 16px;
-            transition: transform 0.18s ease, box-shadow 0.18s ease;
-        }
-
-        .stat-card:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 6px 20px rgba(0,0,0,0.08);
-        }
-
-        .stat-icon {
-            width: 48px; height: 48px;
-            border-radius: 12px;
-            display: flex; align-items: center; justify-content: center;
-            font-size: 1.35rem;
-            flex-shrink: 0;
-        }
-
-        .stat-icon.blue   { background: #e8f0fe; color: var(--info); }
-        .stat-icon.green  { background: #e6f7f0; color: var(--success); }
-        .stat-icon.orange { background: #fff3e0; color: var(--accent); }
-        .stat-icon.red    { background: #fdecea; color: var(--danger); }
-
-        .stat-body { flex: 1; }
-        .stat-label { font-size: 0.75rem; color: var(--text-muted); font-weight: 500; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 4px; }
-        .stat-value { font-size: 1.6rem; font-weight: 700; color: var(--text); line-height: 1; font-family: 'DM Mono', monospace; }
-
-        /* ── BUTTONS ── */
-        .btn {
-            font-family: 'DM Sans', sans-serif;
-            font-weight: 600;
-            font-size: 0.82rem;
-            border-radius: 8px;
-            padding: 7px 16px;
-            transition: all 0.15s ease;
-            display: inline-flex;
-            align-items: center;
-            gap: 6px;
-            border: none;
-        }
-
-        .btn-primary   { background: var(--primary); color: #fff; }
-        .btn-primary:hover { background: var(--primary-light); color: #fff; }
-        .btn-accent    { background: var(--accent); color: var(--primary); }
-        .btn-accent:hover { background: var(--accent-hover); color: var(--primary); }
-        .btn-success   { background: var(--success); color: #fff; }
-        .btn-success:hover { background: #129960; color: #fff; }
-        .btn-danger    { background: var(--danger); color: #fff; }
-        .btn-danger:hover { background: #c42e2e; color: #fff; }
-        .btn-secondary { background: var(--surface-2); color: var(--text); border: 1px solid var(--border); }
-        .btn-secondary:hover { background: var(--border); color: var(--text); }
-        .btn-info      { background: var(--info); color: #fff; }
-        .btn-info:hover { background: #2563eb; color: #fff; }
-
-        /* Icon-only action buttons */
-        .btn-icon {
-            width: 32px; height: 32px;
-            padding: 0;
-            border-radius: 8px;
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 0.82rem;
-            border: 1px solid transparent;
-            transition: all 0.15s;
-            cursor: pointer;
-        }
-
-        .btn-icon-edit   { background: #e8f0fe; color: var(--info); border-color: #c7d9fc; }
-        .btn-icon-edit:hover { background: var(--info); color: #fff; border-color: var(--info); }
-        .btn-icon-delete { background: #fdecea; color: var(--danger); border-color: #f9c6c6; }
-        .btn-icon-delete:hover { background: var(--danger); color: #fff; border-color: var(--danger); }
-        .btn-icon-pay    { background: #e6f7f0; color: var(--success); border-color: #b7e8d3; }
-        .btn-icon-pay:hover { background: var(--success); color: #fff; border-color: var(--success); }
-        .btn-icon-return { background: #fff3e0; color: var(--accent); border-color: #fbd99a; }
-        .btn-icon-return:hover { background: var(--accent); color: var(--primary); border-color: var(--accent); }
-
-        .action-group { display: flex; gap: 5px; align-items: center; }
-
-        /* ── TABLES ── */
-        .table { margin: 0; }
-        .table thead th {
-            background: var(--surface-2);
-            color: var(--text-muted);
-            font-size: 0.72rem;
-            font-weight: 600;
-            letter-spacing: 0.6px;
-            text-transform: uppercase;
-            padding: 10px 16px;
-            border-bottom: 1px solid var(--border);
-        }
-
-        .table tbody td {
-            padding: 12px 16px;
-            font-size: 0.875rem;
-            border-bottom: 1px solid var(--border);
-            vertical-align: middle;
-        }
-
-        .table tbody tr:last-child td { border-bottom: none; }
-        .table-hover tbody tr:hover td { background: var(--surface-2); }
-
-        /* ── BADGES ── */
-        .badge {
-            font-family: 'DM Sans', sans-serif;
-            font-weight: 600;
-            font-size: 0.7rem;
-            padding: 4px 10px;
-            border-radius: 20px;
-            letter-spacing: 0.3px;
-        }
-
-        .badge-paid     { background: #e6f7f0; color: #0d8a56; }
-        .badge-unpaid   { background: #fdecea; color: #c42e2e; }
-        .badge-returned { background: #e6f7f0; color: #0d8a56; }
-        .badge-rented   { background: #fff3e0; color: #c47800; }
-
-        /* ── PAGE HEADER ── */
-        .page-header {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            margin-bottom: 24px;
-            flex-wrap: wrap;
-            gap: 12px;
-        }
-
-        .page-header-left h2 {
-            font-size: 1.35rem;
-            font-weight: 700;
-            margin: 0 0 2px;
-        }
-
-        .page-header-left p {
-            color: var(--text-muted);
-            font-size: 0.82rem;
-            margin: 0;
-        }
-
-        /* ── MODALS ── */
-        .modal-content { border-radius: 16px; border: 1px solid var(--border); }
-        .modal-header {
-            background: var(--primary);
-            color: #fff;
-            border-radius: 16px 16px 0 0;
-            padding: 18px 24px;
-            border-bottom: none;
-        }
-        .modal-title { font-size: 0.95rem; font-weight: 600; }
-        .modal-body { padding: 24px; }
-        .modal-footer { padding: 16px 24px; border-top: 1px solid var(--border); }
-
-        .form-label { font-size: 0.8rem; font-weight: 600; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 6px; }
-        .form-control, .form-select {
-            border: 1px solid var(--border);
-            border-radius: 8px;
-            font-size: 0.875rem;
-            padding: 9px 12px;
-            font-family: 'DM Sans', sans-serif;
-            transition: border 0.15s;
-        }
-        .form-control:focus, .form-select:focus {
-            border-color: var(--accent);
-            box-shadow: 0 0 0 3px rgba(240,165,0,0.15);
-        }
-
-        .value-highlight {
-            background: var(--surface-2);
-            border: 1px solid var(--border);
-            border-radius: 10px;
-            padding: 14px 16px;
-            text-align: center;
-        }
-        .value-highlight span { font-size: 1.4rem; font-weight: 700; color: var(--success); font-family: 'DM Mono', monospace; }
-        .value-highlight p { font-size: 0.72rem; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.5px; margin: 2px 0 0; font-weight: 600; }
-
-        /* ── EMPTY STATE ── */
-        .empty-state {
-            padding: 48px 24px;
-            text-align: center;
-            color: var(--text-muted);
-        }
-        .empty-state i { font-size: 2.5rem; opacity: 0.3; margin-bottom: 12px; display: block; }
-        .empty-state p { font-size: 0.875rem; margin: 0; }
-
-        /* ── TOAST ── */
-        .toast-custom {
-            position: fixed;
-            bottom: 24px; right: 24px;
-            background: var(--primary);
-            color: #fff;
-            border-radius: 10px;
-            padding: 14px 20px;
-            font-size: 0.875rem;
-            font-weight: 500;
-            z-index: 9999;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            box-shadow: 0 8px 24px rgba(0,0,0,0.18);
-            animation: slideUp 0.3s ease;
-        }
-        .toast-custom.success::before { content: '✓'; background: var(--success); width: 22px; height: 22px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 0.7rem; font-weight: 700; flex-shrink: 0; }
-        .toast-custom.danger { background: var(--danger); }
-
-        @keyframes slideUp {
-            from { transform: translateY(12px); opacity: 0; }
-            to   { transform: translateY(0); opacity: 1; }
-        }
-
-        /* Sections hidden */
-        .section-hidden { display: none; }
-
-        /* ─────────────────────────────────────
-           RESPONSIVE — MOBILE FIRST
-        ───────────────────────────────────── */
-        @media (max-width: 768px) {
-            /* Sidebar desliza fora */
-            .sidebar {
-                transform: translateX(-100%);
-            }
-
-            .sidebar.open {
-                transform: translateX(0);
-            }
-
-            /* Botão fechar aparece dentro da sidebar */
-            .sidebar-close {
-                display: flex;
-            }
-
-            /* Hamburger aparece na topbar */
-            .hamburger-btn {
-                display: flex;
-            }
-
-            /* Main ocupa tela toda */
-            .main-wrapper {
-                margin-left: 0;
-            }
-
-            /* Topbar mais compacta */
-            .topbar {
-                padding: 12px 16px;
-            }
-
-            .topbar-title {
-                font-size: 0.95rem;
-            }
-
-            /* Conteúdo com padding menor */
-            .page-content {
-                padding: 16px;
-            }
-
-            /* Stats empilhados */
-            .stat-card {
-                padding: 16px;
-            }
-
-            .stat-value {
-                font-size: 1.3rem;
-            }
-
-            /* Tabelas: scroll horizontal */
-            .table-responsive-wrapper {
-                overflow-x: auto;
-                -webkit-overflow-scrolling: touch;
-            }
-
-            /* Page header empilha no mobile */
-            .page-header {
-                flex-direction: column;
-                align-items: flex-start;
-                gap: 10px;
-            }
-
-            .page-header .btn {
-                width: 100%;
-                justify-content: center;
-            }
-
-            /* Modal ocupa mais espaço */
-            .modal-dialog {
-                margin: 12px;
-            }
-
-            .modal-body {
-                padding: 16px;
-            }
-
-            /* Row cols mobile */
-            .row-mobile-full > [class*="col-"] {
-                flex: 0 0 100%;
-                max-width: 100%;
-            }
-
-            /* Cards dashboard empilhados */
-            .dashboard-stats .col-md-4 {
-                flex: 0 0 100%;
-                max-width: 100%;
-            }
-
-            .dashboard-recent .col-md-6 {
-                flex: 0 0 100%;
-                max-width: 100%;
-            }
-
-            /* Reports */
-            .reports-cards .col-md-3 {
-                flex: 0 0 50%;
-                max-width: 50%;
-            }
-
-            .reports-charts .col-md-6 {
-                flex: 0 0 100%;
-                max-width: 100%;
-            }
-
-            /* Toast posicionado melhor */
-            .toast-custom {
-                bottom: 16px;
-                right: 16px;
-                left: 16px;
-                font-size: 0.82rem;
-            }
-
-            /* Login card no mobile */
-            .login-card {
-                max-width: 100%;
-            }
-
-            .login-header {
-                padding: 2rem 1.5rem 1.5rem;
-            }
-
-            .login-body {
-                padding: 2rem 1.5rem;
-            }
-        }
-
-        @media (max-width: 480px) {
-            .reports-cards .col-md-3 {
-                flex: 0 0 100%;
-                max-width: 100%;
-            }
-
-            .topbar-date-text {
-                display: none;
-            }
-
-            .stat-label {
-                font-size: 0.68rem;
-            }
-
-            .login-brand-icon {
-                width: 70px;
-                height: 70px;
-                font-size: 2rem;
-            }
-
-            .login-header h1 {
-                font-size: 1.5rem;
-            }
+        .opacity-50 {
+            opacity: 0.5;
         }
     </style>
 </head>
 <body>
-
-<!-- ═══════════════ LOGIN SCREEN ═══════════════ -->
-<div id="login-section" class="login-container">
-    <div class="login-card">
-        <div class="login-header">
-            <div class="login-brand-icon">
-                <i class="bi bi-hammer"></i>
+    <!-- Tela de Login -->
+    <div id="login-section" class="login-container">
+        <div class="login-card">
+            <div class="login-header">
+                <h1 class="mb-2"><i class="bi bi-shop me-2"></i>Retail Buddy</h1>
+                <p class="mb-0">Sistema de Gestão de Vendas e Estoque</p>
             </div>
-            <h1>Betoneira Caldas</h1>
-            <p>Sistema de Gestão de Aluguéis</p>
-        </div>
-        <div class="login-body">
-            <form id="login-form">
-                <div class="mb-3">
-                    <label for="username" class="form-label">Usuário</label>
-                    <input type="text" class="form-control" id="username" placeholder="Digite seu usuário" required>
-                </div>
-                <div class="mb-3">
-                    <label for="password" class="form-label">Senha</label>
-                    <input type="password" class="form-control" id="password" placeholder="Digite sua senha" required>
-                </div>
-                <div class="mb-3 form-check">
-                    <input type="checkbox" class="form-check-input" id="remember-me">
-                    <label class="form-check-label" for="remember-me">Lembrar-me</label>
-                </div>
-                <button type="submit" class="btn-login">
-                    <i class="bi bi-box-arrow-in-right me-2"></i>Entrar no Sistema
-                </button>
-            </form>
-        </div>
-        <div class="login-footer">
-            <small>Sistema de demonstração - Não requer autenticação real</small>
-        </div>
-    </div>
-</div>
-
-<!-- ═══════════════ MAIN SYSTEM (inicialmente oculto) ═══════════════ -->
-<div id="main-system" class="hidden">
-
-<!-- ═══════════════ OVERLAY ═══════════════ -->
-<div class="sidebar-overlay" id="sidebar-overlay"></div>
-
-<!-- ═══════════════ SIDEBAR ═══════════════ -->
-<aside class="sidebar" id="sidebar">
-    <button class="sidebar-close" id="sidebar-close" aria-label="Fechar menu">
-        <i class="bi bi-x"></i>
-    </button>
-
-    <div class="sidebar-brand">
-        <div class="sidebar-brand-icon"><i class="bi bi-hammer"></i></div>
-        <h5>Betoneira Caldas</h5>
-        <p>Sistema de Aluguel</p>
-    </div>
-
-    <nav class="sidebar-nav">
-        <div class="sidebar-section-label">Principal</div>
-        <a class="nav-link active" href="#" id="dashboard-link">
-            <i class="bi bi-speedometer2"></i> Dashboard
-        </a>
-        <a class="nav-link" href="#" id="products-link">
-            <i class="bi bi-tools"></i> Produtos
-        </a>
-
-        <div class="sidebar-section-label" style="margin-top:12px;">Operações</div>
-        <a class="nav-link" href="#" id="rentals-link">
-            <i class="bi bi-cart-check"></i> Aluguéis
-        </a>
-        <a class="nav-link" href="#" id="returns-link">
-            <i class="bi bi-arrow-return-left"></i> Devoluções
-        </a>
-        <a class="nav-link" href="#" id="debts-link">
-            <i class="bi bi-credit-card"></i> Dívidas
-        </a>
-
-        <div class="sidebar-section-label" style="margin-top:12px;">Análise</div>
-        <a class="nav-link" href="#" id="reports-link">
-            <i class="bi bi-graph-up"></i> Relatórios
-        </a>
-    </nav>
-
-    <div class="sidebar-footer">
-        <div class="sidebar-user">
-            <div class="user-avatar" id="user-avatar">AD</div>
-            <div>
-                <div class="user-name" id="user-name-display">Administrador</div>
-                <div class="user-role">Gestão de Aluguéis</div>
-            </div>
-        </div>
-    </div>
-</aside>
-
-<!-- ═══════════════ MAIN ═══════════════ -->
-<div class="main-wrapper">
-    <!-- TOPBAR -->
-    <header class="topbar">
-        <div class="topbar-left">
-            <button class="hamburger-btn" id="hamburger-btn" aria-label="Abrir menu">
-                <span class="bar"></span>
-                <span class="bar"></span>
-                <span class="bar"></span>
-            </button>
-            <span class="topbar-title" id="topbar-title">Dashboard</span>
-        </div>
-        <div class="topbar-actions">
-            <span class="topbar-date-text" style="font-size:0.78rem; color:var(--text-muted);" id="topbar-date"></span>
-            <button class="btn-logout" id="logout-btn">
-                <i class="bi bi-box-arrow-right"></i> Sair
-            </button>
-        </div>
-    </header>
-
-    <main class="page-content">
-
-        <!-- ── DASHBOARD ── -->
-        <div id="dashboard-section">
-            <div class="row g-3 mb-4 dashboard-stats">
-                <div class="col-md-4">
-                    <div class="stat-card">
-                        <div class="stat-icon blue"><i class="bi bi-tools"></i></div>
-                        <div class="stat-body">
-                            <div class="stat-label">Total de Produtos</div>
-                            <div class="stat-value" id="total-products">0</div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-4">
-                    <div class="stat-card">
-                        <div class="stat-icon green"><i class="bi bi-cash-coin"></i></div>
-                        <div class="stat-body">
-                            <div class="stat-label">Receita Total</div>
-                            <div class="stat-value" id="total-revenue" style="font-size:1.15rem;">R$ 0,00</div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-4">
-                    <div class="stat-card">
-                        <div class="stat-icon red"><i class="bi bi-credit-card"></i></div>
-                        <div class="stat-body">
-                            <div class="stat-label">Total de Dívidas</div>
-                            <div class="stat-value" id="total-debts" style="font-size:1.15rem;">R$ 0,00</div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="row g-3 dashboard-recent">
-                <div class="col-md-6">
-                    <div class="card">
-                        <div class="card-header">
-                            <span class="card-header-title"><i class="bi bi-cart-check"></i> Aluguéis Recentes</span>
-                            <button class="btn btn-secondary btn-sm" onclick="showSection('rentals')"><i class="bi bi-eye"></i> Ver todos</button>
-                        </div>
-                        <div class="card-body p-0">
-                            <div class="table-responsive-wrapper">
-                                <table class="table table-hover" id="recent-rentals">
-                                    <thead><tr><th>Cliente</th><th>Produto</th><th>Status</th></tr></thead>
-                                    <tbody></tbody>
-                                </table>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-6">
-                    <div class="card">
-                        <div class="card-header">
-                            <span class="card-header-title"><i class="bi bi-credit-card"></i> Dívidas Recentes</span>
-                            <button class="btn btn-secondary btn-sm" onclick="showSection('debts')"><i class="bi bi-eye"></i> Ver todas</button>
-                        </div>
-                        <div class="card-body p-0">
-                            <div class="table-responsive-wrapper">
-                                <table class="table table-hover" id="recent-debts">
-                                    <thead><tr><th>Pessoa</th><th>Valor</th><th>Status</th></tr></thead>
-                                    <tbody></tbody>
-                                </table>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- ── PRODUCTS ── -->
-        <div id="products-section" class="section-hidden">
-            <div class="page-header">
-                <div class="page-header-left">
-                    <h2>Produtos</h2>
-                    <p>Gerencie seu inventário de equipamentos</p>
-                </div>
-                <button class="btn btn-accent" data-bs-toggle="modal" data-bs-target="#addProductModal">
-                    <i class="bi bi-plus-circle"></i> Novo Produto
-                </button>
-            </div>
-            <div class="card">
-                <div class="card-body p-0">
-                    <div class="table-responsive-wrapper">
-                        <table class="table table-hover" id="products-table">
-                            <thead><tr><th>Nome</th><th>Qtd.</th><th>Diária</th><th>Total Estoque</th><th>Ações</th></tr></thead>
-                            <tbody></tbody>
-                        </table>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- ── RENTALS ── -->
-        <div id="rentals-section" class="section-hidden">
-            <div class="page-header">
-                <div class="page-header-left">
-                    <h2>Aluguéis</h2>
-                    <p>Histórico completo de locações</p>
-                </div>
-                <button class="btn btn-accent" data-bs-toggle="modal" data-bs-target="#addRentalModal">
-                    <i class="bi bi-plus-circle"></i> Novo Aluguel
-                </button>
-            </div>
-            <div class="card">
-                <div class="card-body p-0">
-                    <div class="table-responsive-wrapper">
-                        <table class="table table-hover" id="rentals-table">
-                            <thead><tr><th>Cliente</th><th>Produto</th><th>Data</th><th>Dias</th><th>Total</th><th>Pgto.</th><th>Status</th><th>Ações</th></tr></thead>
-                            <tbody></tbody>
-                        </table>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- ── RETURNS ── -->
-        <div id="returns-section" class="section-hidden">
-            <div class="page-header">
-                <div class="page-header-left">
-                    <h2>Devoluções</h2>
-                    <p>Aluguéis ativos aguardando devolução</p>
-                </div>
-            </div>
-            <div class="card">
-                <div class="card-body p-0">
-                    <div class="table-responsive-wrapper">
-                        <table class="table table-hover" id="active-rentals">
-                            <thead><tr><th>Cliente</th><th>Produto</th><th>Data</th><th>Dias</th><th>Total</th><th>Pgto.</th><th>Ação</th></tr></thead>
-                            <tbody></tbody>
-                        </table>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- ── DEBTS ── -->
-        <div id="debts-section" class="section-hidden">
-            <div class="page-header">
-                <div class="page-header-left">
-                    <h2>Dívidas</h2>
-                    <p>Controle de recebimentos e pendências</p>
-                </div>
-                <button class="btn btn-accent" data-bs-toggle="modal" data-bs-target="#addDebtModal">
-                    <i class="bi bi-plus-circle"></i> Nova Dívida
-                </button>
-            </div>
-            <div class="card">
-                <div class="card-body p-0">
-                    <div class="table-responsive-wrapper">
-                        <table class="table table-hover" id="debts-table">
-                            <thead><tr><th>Pessoa</th><th>Descrição</th><th>Data</th><th>Total</th><th>Pago</th><th>Status</th><th>Ações</th></tr></thead>
-                            <tbody></tbody>
-                        </table>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- ── REPORTS ── -->
-        <div id="reports-section" class="section-hidden">
-            <div class="page-header">
-                <div class="page-header-left">
-                    <h2>Relatórios Financeiros</h2>
-                    <p>Visão consolidada das operações</p>
-                </div>
-                <button class="btn btn-accent" id="generate-report">
-                    <i class="bi bi-file-earmark-arrow-down"></i> Gerar Relatório
-                </button>
-            </div>
-
-            <div class="row g-3 mb-4 reports-cards">
-                <div class="col-md-3">
-                    <div class="card">
-                        <div class="card-body text-center py-4">
-                            <div style="color:var(--text-muted);font-size:0.72rem;text-transform:uppercase;letter-spacing:0.5px;margin-bottom:8px;">Total Aluguéis</div>
-                            <div style="font-size:1.4rem;font-weight:700;font-family:'DM Mono';color:var(--primary);" id="total-rentals">R$ 0,00</div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-3">
-                    <div class="card">
-                        <div class="card-body text-center py-4">
-                            <div style="color:var(--text-muted);font-size:0.72rem;text-transform:uppercase;letter-spacing:0.5px;margin-bottom:8px;">Recebidos</div>
-                            <div style="font-size:1.4rem;font-weight:700;font-family:'DM Mono';color:var(--success);" id="paid-rentals">R$ 0,00</div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-3">
-                    <div class="card">
-                        <div class="card-body text-center py-4">
-                            <div style="color:var(--text-muted);font-size:0.72rem;text-transform:uppercase;letter-spacing:0.5px;margin-bottom:8px;">Em Aberto</div>
-                            <div style="font-size:1.4rem;font-weight:700;font-family:'DM Mono';color:var(--danger);" id="unpaid-rentals">R$ 0,00</div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-3">
-                    <div class="card" style="border-color:var(--success);background:linear-gradient(135deg,#e6f7f0,#fff);">
-                        <div class="card-body text-center py-4">
-                            <div style="color:var(--success);font-size:0.72rem;text-transform:uppercase;letter-spacing:0.5px;margin-bottom:8px;">Saldo Final</div>
-                            <div style="font-size:1.4rem;font-weight:700;font-family:'DM Mono';color:var(--success);" id="final-balance">R$ 0,00</div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="row g-3 reports-charts">
-                <div class="col-md-6">
-                    <div class="card">
-                        <div class="card-header"><span class="card-header-title"><i class="bi bi-cart-check"></i> Resumo de Aluguéis</span></div>
-                        <div class="card-body"><canvas id="rentalsChart" height="220"></canvas></div>
-                    </div>
-                </div>
-                <div class="col-md-6">
-                    <div class="card">
-                        <div class="card-header"><span class="card-header-title"><i class="bi bi-credit-card"></i> Resumo de Dívidas</span></div>
-                        <div class="card-body">
-                            <canvas id="debtsChart" height="220"></canvas>
-                            <div class="mt-3" style="font-size:0.82rem;color:var(--text-muted);">
-                                <div class="d-flex justify-content-between mb-1"><span>Total de Dívidas</span><strong id="total-debts-report">R$ 0,00</strong></div>
-                                <div class="d-flex justify-content-between mb-1"><span>Pagas</span><strong id="paid-debts" style="color:var(--success);">R$ 0,00</strong></div>
-                                <div class="d-flex justify-content-between"><span>Em Aberto</span><strong id="unpaid-debts" style="color:var(--danger);">R$ 0,00</strong></div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-    </main>
-</div>
-
-</div>
-<!-- END MAIN SYSTEM -->
-
-<!-- ═══════════════ MODALS ═══════════════ -->
-
-<!-- Add Product -->
-<div class="modal fade" id="addProductModal" tabindex="-1">
-    <div class="modal-dialog modal-dialog-centered">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title"><i class="bi bi-tools me-2"></i>Adicionar Produto</h5>
-                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
-            </div>
-            <div class="modal-body">
-                <form id="product-form">
+            <div class="login-body">
+                <form id="login-form">
                     <div class="mb-3">
-                        <label class="form-label">Nome do Produto</label>
-                        <input type="text" class="form-control" id="product-name" placeholder="Ex: Betoneira 400L" required>
+                        <label for="username" class="form-label">Usuário</label>
+                        <input type="text" class="form-control" id="username" placeholder="Digite seu usuário" required>
                     </div>
+                    <div class="mb-3">
+                        <label for="password" class="form-label">Senha</label>
+                        <input type="password" class="form-control" id="password" placeholder="Digite sua senha" required>
+                    </div>
+                    <div class="mb-3 form-check">
+                        <input type="checkbox" class="form-check-input" id="remember-me">
+                        <label class="form-check-label" for="remember-me">Lembrar-me</label>
+                    </div>
+                    <button type="submit" class="btn btn-primary w-100" style="background-color: #6a1b9a; border-color: #6a1b9a;">
+                        <i class="bi bi-box-arrow-in-right me-2"></i>Entrar
+                    </button>
+                </form>
+            </div>
+            <div class="login-footer">
+                <small class="text-muted">Usuário: qualquer nome | Senha: <strong>admin</strong></small>
+            </div>
+        </div>
+    </div>
+
+    <!-- Sistema Principal -->
+    <div id="main-system" class="hidden">
+        <!-- Navegação -->
+        <nav class="navbar navbar-expand-lg navbar-light bg-white border-bottom shadow-sm sticky-top">
+            <div class="container-fluid">
+                <a class="navbar-brand text-purple-700 font-bold" href="#">
+                    <i class="bi bi-shop me-2"></i>Retail Buddy
+                </a>
+                <div class="collapse navbar-collapse" id="navbarNav">
+                    <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                        <li class="nav-item">
+                            <a class="nav-link" id="dashboard-link" href="#"><i class="bi bi-speedometer2 me-1"></i> Dashboard</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" id="products-link" href="#"><i class="bi bi-box-seam me-1"></i> Produtos</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" id="sales-link" href="#"><i class="bi bi-cart-plus me-1"></i> Vendas</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" id="reports-link" href="#"><i class="bi bi-bar-chart-line me-1"></i> Relatórios</a>
+                        </li>
+                    </ul>
+                    <span class="navbar-text me-3 text-sm text-gray-500">
+                        Usuário: <span id="current-user" class="font-semibold text-gray-700">Administrador</span>
+                    </span>
+                    <button id="logout-btn" class="btn btn-outline-secondary btn-sm">
+                        <i class="bi bi-box-arrow-right me-1"></i>Sair
+                    </button>
+                </div>
+            </div>
+        </nav>
+
+        <!-- Conteúdo -->
+        <div class="container main-content">
+            <!-- Dashboard -->
+            <section id="dashboard-section" class="mb-5">
+                <h2 class="mb-4"><i class="bi bi-speedometer2"></i> Dashboard</h2>
+                
+                <div class="row mb-4">
+                    <div class="col-12">
+                        <div class="card bg-light p-3">
+                            <div class="row g-2">
+                                <div class="col-md-3">
+                                    <button class="btn btn-primary w-100" data-bs-toggle="modal" data-bs-target="#addProductModal">
+                                        <i class="bi bi-plus-circle me-1"></i> Adicionar Produto
+                                    </button>
+                                </div>
+                                <div class="col-md-3">
+                                    <button class="btn btn-success w-100" data-bs-toggle="modal" data-bs-target="#addSaleModal">
+                                        <i class="bi bi-cart-check me-1"></i> Nova Venda
+                                    </button>
+                                </div>
+                                <div class="col-md-3">
+                                    <button class="btn btn-info w-100" data-bs-toggle="modal" data-bs-target="#stockEntryModal">
+                                        <i class="bi bi-box-arrow-in-down me-1"></i> Entrada Estoque
+                                    </button>
+                                </div>
+                                <div class="col-md-3">
+                                    <button class="btn btn-warning w-100" onclick="generateQuickReport()">
+                                        <i class="bi bi-file-earmark-arrow-down me-1"></i> Relatório Rápido
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row g-4">
+                    <div class="col-md-4">
+                        <div class="card bg-purple-600 text-white p-4 position-relative">
+                            <div class="card-body">
+                                <h5 class="card-title text-sm opacity-75">Total de Produtos</h5>
+                                <p class="card-text text-3xl font-bold" id="total-products">0</p>
+                                <i class="bi bi-box-seam position-absolute top-4 right-4 text-4xl opacity-50"></i>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="card bg-pink-600 text-white p-4 position-relative">
+                            <div class="card-body">
+                                <h5 class="card-title text-sm opacity-75">Valor Total em Estoque</h5>
+                                <p class="card-text text-3xl font-bold" id="total-stock-value">R$ 0,00</p>
+                                <i class="bi bi-cash-stack position-absolute top-4 right-4 text-4xl opacity-50"></i>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="card bg-teal-600 text-white p-4 position-relative">
+                            <div class="card-body">
+                                <h5 class="card-title text-sm opacity-75">Vendas de Hoje</h5>
+                                <p class="card-text text-3xl font-bold" id="today-sales">0</p>
+                                <i class="bi bi-calendar-check position-absolute top-4 right-4 text-4xl opacity-50"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row mt-5 g-4">
+                    <div class="col-md-6">
+                        <div class="card">
+                            <div class="card-header bg-white font-semibold text-pink-600 border-bottom d-flex justify-content-between align-items-center">
+                                <span><i class="bi bi-arrow-down-circle me-1"></i> Estoque Baixo</span>
+                                <button class="btn btn-sm btn-outline-secondary" onclick="openStockEntryFromLowStock()">
+                                    <i class="bi bi-box-arrow-in-down me-1"></i> Repor
+                                </button>
+                            </div>
+                            <div class="card-body p-0">
+                                <table class="table table-striped table-hover mb-0" id="low-stock-table">
+                                    <thead>
+                                        <tr>
+                                            <th>Produto</th>
+                                            <th>Qtd.</th>
+                                            <th>Preço</th>
+                                            <th>Ação</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody></tbody>
+                                </table>
+                                <p id="no-low-stock" class="text-center text-gray-500 p-3 hidden">Tudo certo! Nenhum item em estoque baixo.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="card">
+                            <div class="card-header bg-white font-semibold text-teal-600 border-bottom d-flex justify-content-between align-items-center">
+                                <span><i class="bi bi-clock-history me-1"></i> Últimas Vendas</span>
+                                <button class="btn btn-sm btn-outline-primary" onclick="showAllSales()">
+                                    <i class="bi bi-eye me-1"></i> Ver Todas
+                                </button>
+                            </div>
+                            <div class="card-body p-0">
+                                <table class="table table-striped table-hover mb-0" id="recent-sales">
+                                    <thead>
+                                        <tr>
+                                            <th>Produto</th>
+                                            <th>Qtd.</th>
+                                            <th>Total</th>
+                                            <th>Status</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody></tbody>
+                                </table>
+                                <p id="no-recent-sales" class="text-center text-gray-500 p-3 hidden">Nenhuma venda registrada.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Produtos -->
+            <section id="products-section" class="mb-5 hidden">
+                <div class="d-flex justify-content-between align-items-center mb-4">
+                    <h2><i class="bi bi-box-seam me-2"></i> Gestão de Produtos</h2>
+                    <div>
+                        <button class="btn btn-primary me-2" data-bs-toggle="modal" data-bs-target="#addProductModal">
+                            <i class="bi bi-plus-circle me-1"></i> Adicionar Produto
+                        </button>
+                        <button class="btn btn-info" data-bs-toggle="modal" data-bs-target="#stockEntryModal">
+                            <i class="bi bi-box-arrow-in-down me-1"></i> Entrada Estoque
+                        </button>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-body p-0">
+                        <div class="table-responsive">
+                            <table class="table table-striped table-hover mb-0" id="products-table">
+                                <thead class="bg-gray-50">
+                                    <tr>
+                                        <th>Produto</th>
+                                        <th>Estoque</th>
+                                        <th>Preço Unitário</th>
+                                        <th>Valor Total</th>
+                                        <th>Ações</th>
+                                    </tr>
+                                </thead>
+                                <tbody></tbody>
+                            </table>
+                        </div>
+                        <p id="no-products-data" class="text-center text-gray-500 p-3 hidden">Nenhum produto cadastrado.</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Vendas -->
+            <section id="sales-section" class="mb-5 hidden">
+                <div class="d-flex justify-content-between align-items-center mb-4">
+                    <h2><i class="bi bi-cart-plus me-2"></i> Registro de Vendas</h2>
+                    <div>
+                        <button class="btn btn-success me-2" data-bs-toggle="modal" data-bs-target="#addSaleModal">
+                            <i class="bi bi-cart-check me-1"></i> Nova Venda
+                        </button>
+                        <button class="btn btn-warning" onclick="generateSalesReport()">
+                            <i class="bi bi-file-earmark-arrow-down me-1"></i> Relatório
+                        </button>
+                    </div>
+                </div>
+
+                <div class="card mb-4">
+                    <div class="card-body">
+                        <div class="row g-3">
+                            <div class="col-md-4">
+                                <label for="filter-payment-status" class="form-label">Status de Pagamento</label>
+                                <select class="form-select" id="filter-payment-status" onchange="filterSales()">
+                                    <option value="all">Todos</option>
+                                    <option value="pago">Pago</option>
+                                    <option value="pendente">Pendente</option>
+                                </select>
+                            </div>
+                            <div class="col-md-4">
+                                <label for="filter-date" class="form-label">Data</label>
+                                <input type="date" class="form-control" id="filter-date" onchange="filterSales()">
+                            </div>
+                            <div class="col-md-4">
+                                <label class="form-label">&nbsp;</label>
+                                <button class="btn btn-secondary w-100" onclick="clearFilters()">
+                                    <i class="bi bi-arrow-clockwise me-1"></i> Limpar
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-body p-0">
+                        <div class="table-responsive">
+                            <table class="table table-striped table-hover mb-0" id="sales-table">
+                                <thead class="bg-gray-50">
+                                    <tr>
+                                        <th>Data</th>
+                                        <th>Produto</th>
+                                        <th>Qtd.</th>
+                                        <th>Preço Unit.</th>
+                                        <th>Total</th>
+                                        <th>Status</th>
+                                        <th>Ações</th>
+                                    </tr>
+                                </thead>
+                                <tbody></tbody>
+                            </table>
+                        </div>
+                        <p id="no-sales-data" class="text-center text-gray-500 p-3 hidden">Nenhuma venda.</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Relatórios -->
+            <section id="reports-section" class="mb-5 hidden">
+                <div class="d-flex justify-content-between align-items-center mb-4">
+                    <h2><i class="bi bi-bar-chart-line me-2"></i> Relatórios</h2>
+                    <div>
+                        <button class="btn btn-primary me-2" onclick="generateStockReport()">
+                            <i class="bi bi-file-earmark-arrow-down me-1"></i> Estoque
+                        </button>
+                        <button class="btn btn-success" onclick="generateSalesReport()">
+                            <i class="bi bi-file-earmark-arrow-down me-1"></i> Vendas
+                        </button>
+                    </div>
+                </div>
+
+                <div class="row g-4 mb-5">
+                    <div class="col-md-3">
+                        <div class="card bg-white p-4 text-center">
+                            <h5 class="text-sm text-gray-500">Total Vendas</h5>
+                            <p class="text-3xl font-bold text-teal-600" id="report-total-sales">R$ 0,00</p>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="card bg-white p-4 text-center">
+                            <h5 class="text-sm text-gray-500">Itens Vendidos</h5>
+                            <p class="text-3xl font-bold text-pink-600" id="report-items-sold">0</p>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="card bg-white p-4 text-center">
+                            <h5 class="text-sm text-gray-500">Valor Estoque</h5>
+                            <p class="text-3xl font-bold text-purple-600" id="report-total-stock">R$ 0,00</p>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="card bg-white p-4 text-center">
+                            <h5 class="text-sm text-gray-500">Vendas Pendentes</h5>
+                            <p class="text-3xl font-bold text-orange-600" id="report-pending-sales">0</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card mt-5 p-4 bg-gray-50">
+                    <h3 class="mb-3"><i class="bi bi-download me-1"></i> Exportar Dados (CSV)</h3>
                     <div class="row g-3">
-                        <div class="col-6">
-                            <label class="form-label">Quantidade Disponível</label>
-                            <input type="number" class="form-control" id="product-quantity" min="0" required>
+                        <div class="col-md-4">
+                            <label for="report-type" class="form-label">Tipo de Relatório</label>
+                            <select id="report-type" class="form-select">
+                                <option value="stock">Estoque</option>
+                                <option value="sales">Vendas</option>
+                                <option value="low-stock">Estoque Baixo</option>
+                                <option value="pending-payments">Pendentes</option>
+                            </select>
                         </div>
-                        <div class="col-6">
-                            <label class="form-label">Valor da Diária (R$)</label>
-                            <input type="number" step="0.01" class="form-control" id="product-daily-rate" min="0" required>
+                        <div class="col-md-4">
+                            <label for="report-period" class="form-label">Período</label>
+                            <select id="report-period" class="form-select">
+                                <option value="all">Todo Período</option>
+                                <option value="today">Hoje</option>
+                                <option value="week">7 Dias</option>
+                                <option value="month">Este Mês</option>
+                            </select>
+                        </div>
+                        <div class="col-md-4 d-flex align-items-end">
+                            <button id="generate-report" class="btn btn-info w-full text-white">
+                                <i class="bi bi-file-earmark-arrow-down me-1"></i> Gerar CSV
+                            </button>
                         </div>
                     </div>
-                </form>
-            </div>
-            <div class="modal-footer">
-                <button class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-                <button class="btn btn-primary" id="save-product"><i class="bi bi-check2"></i> Salvar</button>
+                </div>
+            </section>
+        </div>
+
+        <!-- Modals -->
+        <div class="modal fade" id="addProductModal" tabindex="-1">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+                    <div class="modal-header bg-purple-600 text-white">
+                        <h5 class="modal-title">Adicionar Produto</h5>
+                        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+                    </div>
+                    <div class="modal-body">
+                        <form id="product-form">
+                            <div class="mb-3">
+                                <label for="product-name" class="form-label">Nome do Produto</label>
+                                <input type="text" class="form-control" id="product-name" required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="product-quantity" class="form-label">Quantidade</label>
+                                <input type="number" class="form-control" id="product-quantity" min="0" value="1" required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="product-price" class="form-label">Preço (R$)</label>
+                                <input type="number" class="form-control" id="product-price" min="0.01" step="0.01" value="0.01" required>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                        <button type="button" class="btn btn-primary" id="save-product">Salvar</button>
+                    </div>
+                </div>
             </div>
         </div>
-    </div>
-</div>
 
-<!-- Add Rental -->
-<div class="modal fade" id="addRentalModal" tabindex="-1">
-    <div class="modal-dialog modal-dialog-centered">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title"><i class="bi bi-cart-plus me-2"></i>Novo Aluguel</h5>
-                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
-            </div>
-            <div class="modal-body">
-                <form id="rental-form">
-                    <div class="mb-3">
-                        <label class="form-label">Cliente</label>
-                        <input type="text" class="form-control" id="rental-client" placeholder="Nome do cliente" required>
+        <div class="modal fade" id="addSaleModal" tabindex="-1">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+                    <div class="modal-header bg-teal-600 text-white">
+                        <h5 class="modal-title">Nova Venda</h5>
+                        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
                     </div>
-                    <div class="mb-3">
-                        <label class="form-label">Produto</label>
-                        <select class="form-select" id="rental-product" required>
-                            <option value="">Selecione um produto</option>
-                        </select>
-                        <div style="font-size:0.75rem;color:var(--text-muted);margin-top:5px;" id="product-info">Disponível: — | Diária: —</div>
+                    <div class="modal-body">
+                        <form id="sale-form">
+                            <div class="mb-3">
+                                <label for="sale-product" class="form-label">Produto</label>
+                                <select class="form-select" id="sale-product" required>
+                                    <option value="">Selecione um produto</option>
+                                </select>
+                                <small class="form-text text-muted" id="product-stock-info">Estoque: 0</small>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6 mb-3">
+                                    <label for="sale-quantity" class="form-label">Quantidade</label>
+                                    <input type="number" class="form-control" id="sale-quantity" min="1" value="1" required>
+                                </div>
+                                <div class="col-md-6 mb-3">
+                                    <label for="sale-price" class="form-label">Preço (R$)</label>
+                                    <input type="number" class="form-control" id="sale-price" min="0.01" step="0.01" required>
+                                </div>
+                            </div>
+                            <div class="mb-3">
+                                <label for="sale-payment-status" class="form-label">Status</label>
+                                <select class="form-select" id="sale-payment-status" required>
+                                    <option value="pago">Pago</option>
+                                    <option value="pendente">Pendente</option>
+                                </select>
+                            </div>
+                            <div class="p-3 bg-light text-center">
+                                <h5 class="mb-0">Total: <span id="sale-total" class="text-teal-600">R$ 0,00</span></h5>
+                            </div>
+                        </form>
                     </div>
-                    <div class="row g-3 mb-3">
-                        <div class="col-6">
-                            <label class="form-label">Dias de Aluguel</label>
-                            <input type="number" class="form-control" id="rental-days" min="1" required>
-                        </div>
-                        <div class="col-6">
-                            <label class="form-label">Quantidade</label>
-                            <input type="number" class="form-control" id="rental-quantity" min="1" required>
-                        </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                        <button type="button" class="btn btn-primary" id="save-sale">Registrar</button>
                     </div>
-                    <div class="mb-3">
-                        <div class="form-check">
-                            <input class="form-check-input" type="checkbox" id="rental-paid">
-                            <label class="form-check-label" for="rental-paid" style="font-size:0.875rem;">Pagamento já realizado</label>
-                        </div>
-                    </div>
-                    <div class="value-highlight">
-                        <span id="rental-total">R$ 0,00</span>
-                        <p>Valor Total do Aluguel</p>
-                    </div>
-                </form>
-            </div>
-            <div class="modal-footer">
-                <button class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-                <button class="btn btn-primary" id="save-rental"><i class="bi bi-check2"></i> Registrar</button>
+                </div>
             </div>
         </div>
-    </div>
-</div>
 
-<!-- Add Debt -->
-<div class="modal fade" id="addDebtModal" tabindex="-1">
-    <div class="modal-dialog modal-dialog-centered">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="addDebtModalLabel"><i class="bi bi-credit-card me-2"></i>Nova Dívida</h5>
-                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
-            </div>
-            <div class="modal-body">
-                <form id="debt-form">
-                    <div class="row g-3 mb-3">
-                        <div class="col-6">
-                            <label class="form-label">Pessoa</label>
-                            <input type="text" class="form-control" id="debt-person" required>
-                        </div>
-                        <div class="col-6">
-                            <label class="form-label">Data</label>
-                            <input type="date" class="form-control" id="debt-date" required>
-                        </div>
+        <div class="modal fade" id="stockEntryModal" tabindex="-1">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+                    <div class="modal-header bg-secondary text-white">
+                        <h5 class="modal-title">Entrada de Estoque</h5>
+                        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
                     </div>
-                    <div class="mb-3">
-                        <label class="form-label">Descrição</label>
-                        <input type="text" class="form-control" id="debt-description" required>
+                    <div class="modal-body">
+                        <form id="stock-entry-form">
+                            <div class="mb-3">
+                                <label for="stock-product-select" class="form-label">Produto</label>
+                                <select class="form-select" id="stock-product-select" required>
+                                    <option value="">Selecione um produto</option>
+                                </select>
+                            </div>
+                            <div class="mb-3">
+                                <label for="stock-product-name" class="form-label">Produto</label>
+                                <input type="text" class="form-control" id="stock-product-name" disabled>
+                            </div>
+                            <div class="mb-3">
+                                <label for="stock-current-quantity" class="form-label">Estoque Atual</label>
+                                <input type="number" class="form-control" id="stock-current-quantity" disabled>
+                            </div>
+                            <div class="mb-3">
+                                <label for="stock-entry-quantity" class="form-label">Quantidade</label>
+                                <input type="number" class="form-control" id="stock-entry-quantity" min="1" value="1" required>
+                            </div>
+                        </form>
                     </div>
-                    <div class="row g-3 mb-3">
-                        <div class="col-6">
-                            <label class="form-label">Valor Total (R$)</label>
-                            <input type="number" step="0.01" class="form-control" id="debt-total" min="0" required>
-                        </div>
-                        <div class="col-6">
-                            <label class="form-label">Valor Pago (R$)</label>
-                            <input type="number" step="0.01" class="form-control" id="debt-paid" min="0" value="0" required>
-                        </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                        <button type="button" class="btn btn-primary" id="save-stock-entry">Registrar</button>
                     </div>
-                    <div class="form-check">
-                        <input class="form-check-input" type="checkbox" id="debt-is-paid">
-                        <label class="form-check-label" for="debt-is-paid" style="font-size:0.875rem;">Dívida quitada</label>
-                    </div>
-                </form>
-            </div>
-            <div class="modal-footer">
-                <button class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-                <button class="btn btn-primary" id="save-debt"><i class="bi bi-check2"></i> Salvar</button>
+                </div>
             </div>
         </div>
+
+        <!-- Toast Container -->
+        <div id="toast-container" class="position-fixed top-0 end-0 p-3" style="z-index: 1080;"></div>
     </div>
-</div>
 
-<!-- Payment Debt -->
-<div class="modal fade" id="paymentModal" tabindex="-1">
-    <div class="modal-dialog modal-dialog-centered">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title"><i class="bi bi-cash me-2"></i>Registrar Pagamento</h5>
-                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
-            </div>
-            <div class="modal-body">
-                <input type="hidden" id="payment-debt-id">
-                <div class="row g-3 mb-3">
-                    <div class="col-6">
-                        <label class="form-label">Pessoa</label>
-                        <input type="text" class="form-control" id="payment-person" readonly>
-                    </div>
-                    <div class="col-6">
-                        <label class="form-label">Valor Total</label>
-                        <input type="text" class="form-control" id="payment-total" readonly>
-                    </div>
-                </div>
-                <div class="mb-3">
-                    <label class="form-label">Descrição</label>
-                    <input type="text" class="form-control" id="payment-description" readonly>
-                </div>
-                <div class="mb-3">
-                    <label class="form-label">Já Pago</label>
-                    <input type="text" class="form-control" id="payment-already-paid" readonly>
-                </div>
-                <div class="mb-3">
-                    <label class="form-label">Valor do Pagamento (R$)</label>
-                    <input type="number" step="0.01" class="form-control" id="payment-amount" min="0" required>
-                </div>
-            </div>
-            <div class="modal-footer">
-                <button class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-                <button class="btn btn-success" id="save-payment"><i class="bi bi-check2-circle"></i> Confirmar</button>
-            </div>
-        </div>
-    </div>
-</div>
+    <!-- Scripts -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        // Configurações
+        const LOW_STOCK_THRESHOLD = 5;
+        let products = [];
+        let sales = [];
+        let currentUser = null;
+        let filteredSales = [];
 
-<!-- Payment Rental -->
-<div class="modal fade" id="paymentRentalModal" tabindex="-1">
-    <div class="modal-dialog modal-dialog-centered">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title"><i class="bi bi-cash me-2"></i>Pagamento de Aluguel</h5>
-                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
-            </div>
-            <div class="modal-body">
-                <input type="hidden" id="payment-rental-id">
-                <div class="row g-3 mb-3">
-                    <div class="col-6">
-                        <label class="form-label">Cliente</label>
-                        <input type="text" class="form-control" id="payment-rental-client" readonly>
-                    </div>
-                    <div class="col-6">
-                        <label class="form-label">Valor Total</label>
-                        <input type="text" class="form-control" id="payment-rental-total" readonly>
-                    </div>
-                </div>
-                <div class="mb-3">
-                    <label class="form-label">Produto</label>
-                    <input type="text" class="form-control" id="payment-rental-product" readonly>
-                </div>
-                <div class="mb-3">
-                    <div class="form-check">
-                        <input class="form-check-input" type="checkbox" id="payment-rental-full" checked>
-                        <label class="form-check-label" for="payment-rental-full" style="font-size:0.875rem;">Pagamento total</label>
-                    </div>
-                </div>
-                <div id="partial-payment-container" style="display:none;">
-                    <label class="form-label">Valor Parcial (R$)</label>
-                    <input type="number" step="0.01" class="form-control" id="payment-rental-amount" min="0">
-                </div>
-            </div>
-            <div class="modal-footer">
-                <button class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-                <button class="btn btn-success" id="save-rental-payment"><i class="bi bi-check2-circle"></i> Confirmar</button>
-            </div>
-        </div>
-    </div>
-</div>
+        // Elementos
+        const sections = {
+            dashboard: document.getElementById('dashboard-section'),
+            products: document.getElementById('products-section'),
+            sales: document.getElementById('sales-section'),
+            reports: document.getElementById('reports-section')
+        };
+        
+        const navLinks = {
+            dashboard: document.getElementById('dashboard-link'),
+            products: document.getElementById('products-link'),
+            sales: document.getElementById('sales-link'),
+            reports: document.getElementById('reports-link')
+        };
 
-<!-- Return -->
-<div class="modal fade" id="returnModal" tabindex="-1">
-    <div class="modal-dialog modal-dialog-centered">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title"><i class="bi bi-arrow-return-left me-2"></i>Registrar Devolução</h5>
-                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
-            </div>
-            <div class="modal-body">
-                <input type="hidden" id="return-rental-id">
-                <div class="row g-3 mb-3">
-                    <div class="col-6">
-                        <label class="form-label">Cliente</label>
-                        <input type="text" class="form-control" id="return-client" readonly>
-                    </div>
-                    <div class="col-6">
-                        <label class="form-label">Produto</label>
-                        <input type="text" class="form-control" id="return-product" readonly>
-                    </div>
-                </div>
-                <div class="row g-3 mb-3">
-                    <div class="col-4">
-                        <label class="form-label">Data</label>
-                        <input type="text" class="form-control" id="return-date" readonly>
-                    </div>
-                    <div class="col-4">
-                        <label class="form-label">Dias</label>
-                        <input type="text" class="form-control" id="return-days" readonly>
-                    </div>
-                    <div class="col-4">
-                        <label class="form-label">Total</label>
-                        <input type="text" class="form-control" id="return-total" readonly>
-                    </div>
-                </div>
-                <div class="mb-3">
-                    <label class="form-label">Status Pagamento</label>
-                    <input type="text" class="form-control" id="return-payment" readonly>
-                </div>
-            </div>
-            <div class="modal-footer">
-                <button class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-                <button class="btn btn-accent" id="confirm-return"><i class="bi bi-check2-circle"></i> Confirmar Devolução</button>
-            </div>
-        </div>
-    </div>
-</div>
+        // Inicialização
+        document.addEventListener('DOMContentLoaded', function() {
+            console.log('Sistema iniciando...');
+            
+            // Verificar login
+            const loggedInUser = localStorage.getItem('retailBuddyUser');
+            if (loggedInUser) {
+                currentUser = loggedInUser;
+                document.getElementById('current-user').textContent = currentUser;
+                showMainSystem();
+            }
+            
+            // Login
+            document.getElementById('login-form').addEventListener('submit', function(e) {
+                e.preventDefault();
+                handleLogin();
+            });
+            
+            // Logout
+            document.getElementById('logout-btn').addEventListener('click', function() {
+                performLogout();
+            });
+            
+            // Navegação
+            setupNavigation();
+            setupModals();
+        });
 
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-<script>
-// ── LOGIN SYSTEM ──
-let currentUser = null;
-
-document.addEventListener('DOMContentLoaded', () => {
-    // Verificar se o usuário já está logado
-    const loggedInUser = localStorage.getItem('bp_user');
-    if (loggedInUser) {
-        currentUser = loggedInUser;
-        showMainSystem();
-    } else {
-        // Configurar o formulário de login
-        document.getElementById('login-form').addEventListener('submit', function(e) {
-            e.preventDefault();
+        function handleLogin() {
             const username = document.getElementById('username').value.trim();
             const password = document.getElementById('password').value;
             
-            // Verificação simples de login (para demonstração)
-            if (username && password) {
+            if (!username || !password) {
+                showToast('Preencha todos os campos', 'danger');
+                return;
+            }
+            
+            if (password === 'admin') {
                 currentUser = username;
-                localStorage.setItem('bp_user', username);
+                localStorage.setItem('retailBuddyUser', username);
+                document.getElementById('current-user').textContent = username;
                 showMainSystem();
+                showToast(`Bem-vindo, ${username}!`);
             } else {
-                toast('Por favor, preencha todos os campos!', 'danger');
-            }
-        });
-    }
-    
-    // Configurar botão de logout
-    document.getElementById('logout-btn').addEventListener('click', function() {
-        localStorage.removeItem('bp_user');
-        location.reload();
-    });
-});
-
-function showMainSystem() {
-    document.getElementById('login-section').classList.add('hidden');
-    document.getElementById('main-system').classList.remove('hidden');
-    
-    // Atualizar nome do usuário
-    const initials = currentUser.substring(0, 2).toUpperCase();
-    document.getElementById('user-avatar').textContent = initials;
-    document.getElementById('user-name-display').textContent = currentUser;
-    
-    // Inicializar dados
-    document.getElementById('topbar-date').textContent = new Date().toLocaleDateString('pt-BR', { weekday:'long', day:'numeric', month:'long' });
-
-    Object.keys(sectionMap).forEach(k => {
-        document.getElementById(k + '-link').addEventListener('click', e => {
-            e.preventDefault();
-            showSection(k);
-            if (k === 'dashboard') refreshDashboard();
-        });
-    });
-
-    setupModals();
-    loadAll();
-    showSection('dashboard');
-}
-
-// ── HAMBURGER MENU ──
-const sidebar      = document.getElementById('sidebar');
-const overlay      = document.getElementById('sidebar-overlay');
-const hamburgerBtn = document.getElementById('hamburger-btn');
-const sidebarClose = document.getElementById('sidebar-close');
-
-function openSidebar() {
-    sidebar.classList.add('open');
-    overlay.classList.add('visible');
-    hamburgerBtn.classList.add('open');
-    document.body.style.overflow = 'hidden';
-}
-
-function closeSidebar() {
-    sidebar.classList.remove('open');
-    overlay.classList.remove('visible');
-    hamburgerBtn.classList.remove('open');
-    document.body.style.overflow = '';
-}
-
-hamburgerBtn.addEventListener('click', () => {
-    sidebar.classList.contains('open') ? closeSidebar() : openSidebar();
-});
-
-sidebarClose.addEventListener('click', closeSidebar);
-overlay.addEventListener('click', closeSidebar);
-
-function closeSidebarIfMobile() {
-    if (window.innerWidth <= 768) closeSidebar();
-}
-
-// ── DATABASE ──
-const DB = {
-    products: JSON.parse(localStorage.getItem('bp_products')) || [],
-    rentals:  JSON.parse(localStorage.getItem('bp_rentals'))  || [],
-    debts:    JSON.parse(localStorage.getItem('bp_debts'))    || [],
-    save() {
-        localStorage.setItem('bp_products', JSON.stringify(this.products));
-        localStorage.setItem('bp_rentals',  JSON.stringify(this.rentals));
-        localStorage.setItem('bp_debts',    JSON.stringify(this.debts));
-    },
-    nextId: arr => arr.length > 0 ? Math.max(...arr.map(x => x.id)) + 1 : 1
-};
-
-// ── NAVIGATION ──
-const sectionMap = {
-    dashboard: 'dashboard-section',
-    products:  'products-section',
-    rentals:   'rentals-section',
-    returns:   'returns-section',
-    debts:     'debts-section',
-    reports:   'reports-section'
-};
-
-const titleMap = {
-    dashboard: 'Dashboard',
-    products:  'Produtos',
-    rentals:   'Aluguéis',
-    returns:   'Devoluções',
-    debts:     'Dívidas',
-    reports:   'Relatórios'
-};
-
-function showSection(name) {
-    Object.keys(sectionMap).forEach(k => {
-        const el = document.getElementById(sectionMap[k]);
-        el.classList.toggle('section-hidden', k !== name);
-        document.getElementById(k + '-link').classList.toggle('active', k === name);
-    });
-    document.getElementById('topbar-title').textContent = titleMap[name];
-    if (name === 'reports') renderReportCharts();
-    closeSidebarIfMobile();
-}
-
-function loadAll() {
-    renderProductsTable();
-    renderProductDropdown();
-    renderRentalsTable();
-    renderActiveRentals();
-    renderDebtsTable();
-    refreshDashboard();
-}
-
-// ── DASHBOARD ──
-function refreshDashboard() {
-    document.getElementById('total-products').textContent = DB.products.length;
-
-    const totalRev = DB.rentals.reduce((s, r) => s + r.valorTotal, 0);
-    const paid     = DB.rentals.filter(r => r.pago).reduce((s, r) => s + r.valorTotal, 0);
-    document.getElementById('total-revenue').textContent = fmt(totalRev);
-    document.getElementById('paid-rentals').textContent  = fmt(paid);
-    document.getElementById('unpaid-rentals').textContent= fmt(totalRev - paid);
-
-    const totalDebts = DB.debts.reduce((s, d) => s + d.valorTotal, 0);
-    const paidDebts  = DB.debts.reduce((s, d) => s + d.valorPago,  0);
-    document.getElementById('total-debts').textContent       = fmt(totalDebts);
-    document.getElementById('total-debts-report').textContent= fmt(totalDebts);
-    document.getElementById('paid-debts').textContent        = fmt(paidDebts);
-    document.getElementById('unpaid-debts').textContent      = fmt(totalDebts - paidDebts);
-
-    document.getElementById('total-rentals').textContent  = fmt(totalRev);
-    document.getElementById('final-balance').textContent  = fmt(paid - paidDebts);
-
-    const recent5r = DB.rentals.slice().reverse().slice(0,5);
-    const tb1 = document.querySelector('#recent-rentals tbody');
-    tb1.innerHTML = recent5r.length
-        ? recent5r.map(r => `<tr><td>${r.cliente}</td><td>${r.produto}</td><td><span class="badge ${r.pago ? 'badge-paid':'badge-unpaid'}">${r.pago?'Pago':'Aberto'}</span></td></tr>`).join('')
-        : `<tr><td colspan="3" class="text-center text-muted py-3" style="font-size:0.82rem;">Nenhum aluguel registrado</td></tr>`;
-
-    const recent5d = DB.debts.slice().reverse().slice(0,5);
-    const tb2 = document.querySelector('#recent-debts tbody');
-    tb2.innerHTML = recent5d.length
-        ? recent5d.map(d => `<tr><td>${d.pessoa}</td><td>${fmt(d.valorTotal)}</td><td><span class="badge ${d.pago ? 'badge-paid':'badge-unpaid'}">${d.pago?'Pago':'Aberto'}</span></td></tr>`).join('')
-        : `<tr><td colspan="3" class="text-center text-muted py-3" style="font-size:0.82rem;">Nenhuma dívida registrada</td></tr>`;
-}
-
-// ── PRODUCTS ──
-function renderProductsTable() {
-    const tbody = document.querySelector('#products-table tbody');
-    if (!DB.products.length) {
-        tbody.innerHTML = `<tr><td colspan="5"><div class="empty-state"><i class="bi bi-tools"></i><p>Nenhum produto cadastrado</p></div></td></tr>`;
-        return;
-    }
-    tbody.innerHTML = DB.products.map(p => `
-        <tr>
-            <td><strong>${p.nome}</strong></td>
-            <td>${p.quantidadeDisponivel}</td>
-            <td>${fmt(p.valorDiaria)}</td>
-            <td>${fmt(p.quantidadeDisponivel * p.valorDiaria)}</td>
-            <td>
-                <div class="action-group">
-                    <button class="btn-icon btn-icon-edit edit-product" data-id="${p.id}" title="Editar produto"><i class="bi bi-pencil"></i></button>
-                    <button class="btn-icon btn-icon-delete delete-product" data-id="${p.id}" title="Excluir produto"><i class="bi bi-trash"></i></button>
-                </div>
-            </td>
-        </tr>
-    `).join('');
-}
-
-function renderProductDropdown() {
-    const sel = document.getElementById('rental-product');
-    sel.innerHTML = '<option value="">Selecione um produto</option>';
-    DB.products.forEach(p => {
-        const o = document.createElement('option');
-        o.value = p.nome; o.textContent = p.nome;
-        sel.appendChild(o);
-    });
-}
-
-// ── RENTALS ──
-function renderRentalsTable() {
-    const tbody = document.querySelector('#rentals-table tbody');
-    if (!DB.rentals.length) {
-        tbody.innerHTML = `<tr><td colspan="8"><div class="empty-state"><i class="bi bi-cart"></i><p>Nenhum aluguel registrado</p></div></td></tr>`;
-        return;
-    }
-    tbody.innerHTML = DB.rentals.map(a => `
-        <tr>
-            <td>${a.cliente}</td>
-            <td>${a.produto}</td>
-            <td>${fmtDate(a.data)}</td>
-            <td>${a.dias}</td>
-            <td><strong>${fmt(a.valorTotal)}</strong></td>
-            <td><span class="badge ${a.pago ? 'badge-paid':'badge-unpaid'}">${a.pago?'Pago':'Aberto'}</span></td>
-            <td><span class="badge ${a.devolvido ? 'badge-returned':'badge-rented'}">${a.devolvido?'Devolvido':'Em uso'}</span></td>
-            <td>
-                <div class="action-group">
-                    ${!a.pago ? `<button class="btn-icon btn-icon-pay pay-rental" data-id="${a.id}" title="Registrar pagamento"><i class="bi bi-cash"></i></button>` : ''}
-                    ${!a.devolvido ? `<button class="btn-icon btn-icon-return return-rental" data-id="${a.id}" title="Registrar devolução"><i class="bi bi-arrow-return-left"></i></button>` : ''}
-                    <button class="btn-icon btn-icon-delete delete-rental" data-id="${a.id}" title="Excluir aluguel"><i class="bi bi-trash"></i></button>
-                </div>
-            </td>
-        </tr>
-    `).join('');
-    attachRentalEvents('#rentals-table');
-}
-
-function renderActiveRentals() {
-    const active = DB.rentals.filter(r => !r.devolvido);
-    const tbody  = document.querySelector('#active-rentals tbody');
-    if (!active.length) {
-        tbody.innerHTML = `<tr><td colspan="7"><div class="empty-state"><i class="bi bi-check2-circle"></i><p>Nenhum aluguel ativo no momento</p></div></td></tr>`;
-        return;
-    }
-    tbody.innerHTML = active.map(a => `
-        <tr>
-            <td>${a.cliente}</td>
-            <td>${a.produto}</td>
-            <td>${fmtDate(a.data)}</td>
-            <td>${a.dias}</td>
-            <td><strong>${fmt(a.valorTotal)}</strong></td>
-            <td><span class="badge ${a.pago ? 'badge-paid':'badge-unpaid'}">${a.pago?'Pago':'Aberto'}</span></td>
-            <td>
-                <div class="action-group">
-                    ${!a.pago ? `<button class="btn-icon btn-icon-pay pay-rental" data-id="${a.id}" title="Registrar pagamento"><i class="bi bi-cash"></i></button>` : ''}
-                    <button class="btn btn-accent btn-sm return-rental" data-id="${a.id}"><i class="bi bi-arrow-return-left"></i> Devolver</button>
-                </div>
-            </td>
-        </tr>
-    `).join('');
-    attachRentalEvents('#active-rentals');
-}
-
-function attachRentalEvents(tableSelector) {
-    document.querySelectorAll(`${tableSelector} .pay-rental`).forEach(btn => {
-        btn.addEventListener('click', () => {
-            const a = DB.rentals.find(r => r.id === +btn.dataset.id);
-            if (a) showPaymentRentalModal(a);
-        });
-    });
-    document.querySelectorAll(`${tableSelector} .return-rental`).forEach(btn => {
-        btn.addEventListener('click', () => {
-            const a = DB.rentals.find(r => r.id === +btn.dataset.id);
-            if (a) showReturnModal(a);
-        });
-    });
-}
-
-// ── DEBTS ──
-function renderDebtsTable() {
-    const tbody = document.querySelector('#debts-table tbody');
-    if (!DB.debts.length) {
-        tbody.innerHTML = `<tr><td colspan="7"><div class="empty-state"><i class="bi bi-credit-card"></i><p>Nenhuma dívida registrada</p></div></td></tr>`;
-        return;
-    }
-    tbody.innerHTML = DB.debts.map(d => `
-        <tr>
-            <td><strong>${d.pessoa}</strong></td>
-            <td>${d.descricao}</td>
-            <td>${fmtDate(d.data)}</td>
-            <td>${fmt(d.valorTotal)}</td>
-            <td>${fmt(d.valorPago)}</td>
-            <td><span class="badge ${d.pago ? 'badge-paid':'badge-unpaid'}">${d.pago?'Pago':'Aberto'}</span></td>
-            <td>
-                <div class="action-group">
-                    ${!d.pago ? `<button class="btn-icon btn-icon-pay pay-debt" data-id="${d.id}" title="Registrar pagamento"><i class="bi bi-cash"></i></button>` : ''}
-                    <button class="btn-icon btn-icon-edit edit-debt" data-id="${d.id}" title="Editar dívida"><i class="bi bi-pencil"></i></button>
-                    <button class="btn-icon btn-icon-delete delete-debt" data-id="${d.id}" title="Excluir dívida"><i class="bi bi-trash"></i></button>
-                </div>
-            </td>
-        </tr>
-    `).join('');
-
-    document.querySelectorAll('.pay-debt').forEach(btn => {
-        btn.addEventListener('click', () => {
-            const d = DB.debts.find(x => x.id === +btn.dataset.id);
-            if (d) showPaymentModal(d);
-        });
-    });
-}
-
-// ── MODALS ──
-function setupModals() {
-    document.getElementById('save-product').addEventListener('click', () => {
-        const nome    = document.getElementById('product-name').value.trim();
-        const qtd     = parseInt(document.getElementById('product-quantity').value);
-        const diaria  = parseFloat(document.getElementById('product-daily-rate').value);
-        if (!nome || isNaN(qtd) || isNaN(diaria)) return;
-
-        DB.products.push({ id: DB.nextId(DB.products), nome, quantidadeDisponivel: qtd, valorDiaria: diaria });
-        DB.save(); loadAll();
-        bootstrap.Modal.getInstance(document.getElementById('addProductModal')).hide();
-        document.getElementById('product-form').reset();
-        toast('Produto adicionado com sucesso!');
-    });
-
-    ['rental-product','rental-days','rental-quantity'].forEach(id => {
-        document.getElementById(id).addEventListener('input', updateRentalTotal);
-        document.getElementById(id).addEventListener('change', updateRentalTotal);
-    });
-    document.getElementById('rental-product').addEventListener('change', () => {
-        const p = DB.products.find(x => x.nome === document.getElementById('rental-product').value);
-        document.getElementById('product-info').textContent = p
-            ? `Disponível: ${p.quantidadeDisponivel} | Diária: ${fmt(p.valorDiaria)}` : '—';
-        updateRentalTotal();
-    });
-
-    document.getElementById('save-rental').addEventListener('click', () => {
-        const productName = document.getElementById('rental-product').value;
-        const product = DB.products.find(p => p.nome === productName);
-        const qty = parseInt(document.getElementById('rental-quantity').value);
-        const days= parseInt(document.getElementById('rental-days').value);
-        const cli = document.getElementById('rental-client').value.trim();
-        if (!product || !cli || isNaN(qty) || isNaN(days)) { toast('Preencha todos os campos!','danger'); return; }
-        if (product.quantidadeDisponivel < qty) { toast('Quantidade insuficiente!','danger'); return; }
-
-        product.quantidadeDisponivel -= qty;
-        DB.rentals.push({
-            id: DB.nextId(DB.rentals), cliente: cli, produto: productName,
-            dias: days, quantidade: qty, valorDiaria: product.valorDiaria,
-            valorTotal: product.valorDiaria * days * qty,
-            pago: document.getElementById('rental-paid').checked,
-            data: new Date().toISOString(), devolvido: false
-        });
-        DB.save(); loadAll();
-        bootstrap.Modal.getInstance(document.getElementById('addRentalModal')).hide();
-        document.getElementById('rental-form').reset();
-        toast('Aluguel registrado com sucesso!');
-    });
-
-    document.getElementById('save-debt').addEventListener('click', saveDivida);
-
-    document.getElementById('save-payment').addEventListener('click', () => {
-        const id  = +document.getElementById('payment-debt-id').value;
-        const d   = DB.debts.find(x => x.id === id);
-        const val = parseFloat(document.getElementById('payment-amount').value);
-        if (d && val > 0) {
-            d.valorPago += val;
-            d.pago = d.valorPago >= d.valorTotal;
-            DB.save(); loadAll();
-            bootstrap.Modal.getInstance(document.getElementById('paymentModal')).hide();
-            toast('Pagamento registrado!');
-        }
-    });
-
-    document.getElementById('payment-rental-full').addEventListener('change', function() {
-        document.getElementById('partial-payment-container').style.display = this.checked ? 'none' : 'block';
-    });
-    document.getElementById('save-rental-payment').addEventListener('click', () => {
-        const id = +document.getElementById('payment-rental-id').value;
-        const a  = DB.rentals.find(x => x.id === id);
-        if (a) {
-            a.pago = true;
-            DB.save(); loadAll();
-            bootstrap.Modal.getInstance(document.getElementById('paymentRentalModal')).hide();
-            toast('Pagamento registrado!');
-        }
-    });
-
-    document.getElementById('confirm-return').addEventListener('click', () => {
-        const id = +document.getElementById('return-rental-id').value;
-        const a  = DB.rentals.find(x => x.id === id);
-        if (a) {
-            if (!a.pago && !confirm('Aluguel não pago. Deseja confirmar a devolução mesmo assim?')) return;
-            a.devolvido = true;
-            const p = DB.products.find(x => x.nome === a.produto);
-            if (p) p.quantidadeDisponivel += a.quantidade;
-            DB.save(); loadAll();
-            bootstrap.Modal.getInstance(document.getElementById('returnModal')).hide();
-            toast('Devolução registrada!');
-        }
-    });
-
-    document.getElementById('generate-report').addEventListener('click', () => {
-        const txt = `Relatório Betoneira Caldas - ${new Date().toLocaleDateString('pt-BR')}
-======================================================
-Produtos: ${DB.products.length}
-Receita Total: ${fmt(DB.rentals.reduce((s,r)=>s+r.valorTotal,0))}
-Dívidas: ${fmt(DB.debts.reduce((s,d)=>s+d.valorTotal,0))}
-
-Aluguéis recentes:
-${DB.rentals.slice().reverse().slice(0,10).map(r=>`  ${r.cliente} | ${r.produto} | ${fmt(r.valorTotal)} | ${r.pago?'Pago':'Aberto'}`).join('\n')}
-
-Dívidas recentes:
-${DB.debts.slice().reverse().slice(0,10).map(d=>`  ${d.pessoa} | ${d.descricao} | ${fmt(d.valorTotal)} | ${d.pago?'Pago':'Aberto'}`).join('\n')}`;
-
-        const blob = new Blob([txt], {type:'text/plain'});
-        const a = document.createElement('a');
-        a.href = URL.createObjectURL(blob);
-        a.download = `relatorio_${new Date().toISOString().slice(0,10)}.txt`;
-        a.click();
-        toast('Relatório gerado!');
-    });
-
-    document.addEventListener('click', e => {
-        if (e.target.closest('.edit-product')) {
-            const id = +e.target.closest('.edit-product').dataset.id;
-            const p  = DB.products.find(x => x.id === id);
-            if (!p) return;
-            document.getElementById('product-name').value        = p.nome;
-            document.getElementById('product-quantity').value    = p.quantidadeDisponivel;
-            document.getElementById('product-daily-rate').value  = p.valorDiaria;
-            const modal = new bootstrap.Modal(document.getElementById('addProductModal'));
-            modal.show();
-            const btn = document.getElementById('save-product');
-            btn.textContent = 'Atualizar';
-            btn.onclick = () => {
-                p.nome = document.getElementById('product-name').value;
-                p.quantidadeDisponivel = +document.getElementById('product-quantity').value;
-                p.valorDiaria = +document.getElementById('product-daily-rate').value;
-                DB.save(); loadAll(); modal.hide();
-                document.getElementById('product-form').reset();
-                toast('Produto atualizado!');
-                btn.textContent = 'Salvar';
-                btn.onclick = null;
-            };
-        }
-        if (e.target.closest('.delete-product')) {
-            const id = +e.target.closest('.delete-product').dataset.id;
-            if (confirm('Excluir este produto?')) {
-                DB.products = DB.products.filter(p => p.id !== id);
-                DB.save(); loadAll(); toast('Produto excluído!');
+                showToast('Senha incorreta! Use "admin"', 'danger');
             }
         }
-        if (e.target.closest('.edit-debt')) {
-            const id = +e.target.closest('.edit-debt').dataset.id;
-            const d  = DB.debts.find(x => x.id === id);
-            if (d) openEditDebt(d);
+
+        function performLogout() {
+            localStorage.removeItem('retailBuddyUser');
+            currentUser = null;
+            document.getElementById('main-system').classList.add('hidden');
+            document.getElementById('login-section').style.display = 'flex';
+            document.getElementById('login-form').reset();
+            showToast('Logout realizado!', 'info');
         }
-        if (e.target.closest('.delete-debt')) {
-            const id = +e.target.closest('.delete-debt').dataset.id;
-            if (confirm('Excluir esta dívida?')) {
-                DB.debts = DB.debts.filter(d => d.id !== id);
-                DB.save(); loadAll(); toast('Dívida excluída!');
+
+        function showMainSystem() {
+            document.getElementById('login-section').style.display = 'none';
+            document.getElementById('main-system').classList.remove('hidden');
+            
+            loadProducts();
+            loadSales();
+            showSection('dashboard');
+        }
+
+        function setupNavigation() {
+            Object.keys(navLinks).forEach(key => {
+                navLinks[key].addEventListener('click', function(e) {
+                    e.preventDefault();
+                    showSection(key);
+                });
+            });
+        }
+
+        function showSection(sectionName) {
+            Object.keys(sections).forEach(key => {
+                sections[key].classList.add('hidden');
+                navLinks[key].classList.remove('active', 'text-purple-700');
+            });
+            
+            sections[sectionName].classList.remove('hidden');
+            navLinks[sectionName].classList.add('active', 'text-purple-700');
+            
+            if (sectionName === 'dashboard') updateDashboard();
+            if (sectionName === 'products') renderProductTable();
+            if (sectionName === 'sales') {
+                populateSaleProductSelect();
+                filterSales();
+            }
+            if (sectionName === 'reports') updateReports();
+        }
+
+        // Sistema de dados
+        function saveProducts() {
+            localStorage.setItem('retailBuddyProducts', JSON.stringify(products));
+        }
+
+        function loadProducts() {
+            const saved = localStorage.getItem('retailBuddyProducts');
+            products = saved ? JSON.parse(saved) : [];
+        }
+
+        function saveSales() {
+            localStorage.setItem('retailBuddySales', JSON.stringify(sales));
+        }
+
+        function loadSales() {
+            const saved = localStorage.getItem('retailBuddySales');
+            sales = saved ? JSON.parse(saved) : [];
+            filteredSales = [...sales];
+        }
+
+        function generateId() {
+            return Date.now().toString(36) + Math.random().toString(36).substr(2);
+        }
+
+        function formatCurrency(value) {
+            return `R$ ${parseFloat(value).toFixed(2).replace('.', ',').replace(/\B(?=(\d{3})+(?!\d))/g, '.')}`;
+        }
+
+        function showToast(message, type = 'success') {
+            const toastHtml = `
+                <div class="toast align-items-center text-white bg-${type} border-0" role="alert">
+                    <div class="d-flex">
+                        <div class="toast-body">${message}</div>
+                        <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast"></button>
+                    </div>
+                </div>
+            `;
+            
+            const container = document.getElementById('toast-container');
+            container.insertAdjacentHTML('beforeend', toastHtml);
+            
+            const toast = new bootstrap.Toast(container.lastElementChild);
+            toast.show();
+            
+            container.lastElementChild.addEventListener('hidden.bs.toast', function() {
+                this.remove();
+            });
+        }
+
+        // Dashboard
+        function updateDashboard() {
+            const totalProducts = products.length;
+            const totalStockValue = products.reduce((sum, p) => sum + (p.quantidade * p.preco), 0);
+            const today = new Date().toISOString().split('T')[0];
+            const todaySales = sales.filter(s => s.data.startsWith(today)).length;
+
+            document.getElementById('total-products').textContent = totalProducts;
+            document.getElementById('total-stock-value').textContent = formatCurrency(totalStockValue);
+            document.getElementById('today-sales').textContent = todaySales;
+
+            // Estoque baixo
+            const lowStockProducts = products.filter(p => p.quantidade <= LOW_STOCK_THRESHOLD);
+            const lowStockTable = document.getElementById('low-stock-table').querySelector('tbody');
+            lowStockTable.innerHTML = '';
+            
+            lowStockProducts.forEach(p => {
+                const row = lowStockTable.insertRow();
+                row.innerHTML = `
+                    <td>${p.nome}</td>
+                    <td><span class="badge ${p.quantidade === 0 ? 'badge-danger' : 'badge-warning'}">${p.quantidade}</span></td>
+                    <td>${formatCurrency(p.preco)}</td>
+                    <td><button class="btn btn-sm btn-info" onclick="quickStockEntry('${p.id}')">Repor</button></td>
+                `;
+            });
+            
+            document.getElementById('no-low-stock').classList.toggle('hidden', lowStockProducts.length > 0);
+
+            // Vendas recentes
+            const recentSales = sales.slice().sort((a, b) => new Date(b.data) - new Date(a.data)).slice(0, 5);
+            const recentSalesTable = document.getElementById('recent-sales').querySelector('tbody');
+            recentSalesTable.innerHTML = '';
+            
+            recentSales.forEach(s => {
+                const product = products.find(p => p.id === s.produtoId);
+                const statusBadge = s.statusPagamento === 'pago' ? 'badge-success' : 'badge-warning';
+                const row = recentSalesTable.insertRow();
+                row.innerHTML = `
+                    <td>${product ? product.nome : 'Produto Deletado'}</td>
+                    <td>${s.quantidade}</td>
+                    <td>${formatCurrency(s.valorTotal)}</td>
+                    <td><span class="badge ${statusBadge}">${s.statusPagamento}</span></td>
+                `;
+            });
+            
+            document.getElementById('no-recent-sales').classList.toggle('hidden', recentSales.length > 0);
+        }
+
+        // Produtos
+        function renderProductTable() {
+            const tableBody = document.getElementById('products-table').querySelector('tbody');
+            tableBody.innerHTML = '';
+            
+            products.forEach(p => {
+                const totalValue = p.quantidade * p.preco;
+                const statusBadge = p.quantidade <= LOW_STOCK_THRESHOLD 
+                    ? `<span class="badge ${p.quantidade === 0 ? 'badge-danger' : 'badge-warning'} ms-2">Baixo</span>`
+                    : `<span class="badge badge-success ms-2">OK</span>`;
+                
+                const row = tableBody.insertRow();
+                row.innerHTML = `
+                    <td>${p.nome} ${statusBadge}</td>
+                    <td>${p.quantidade}</td>
+                    <td>${formatCurrency(p.preco)}</td>
+                    <td>${formatCurrency(totalValue)}</td>
+                    <td>
+                        <div class="action-buttons">
+                            <button class="btn btn-sm btn-info" onclick="editProduct('${p.id}')">Editar</button>
+                            <button class="btn btn-sm btn-secondary" onclick="openStockEntryModal('${p.id}')">Estoque</button>
+                            <button class="btn btn-sm btn-danger" onclick="deleteProduct('${p.id}')">Excluir</button>
+                        </div>
+                    </td>
+                `;
+            });
+            
+            document.getElementById('no-products-data').classList.toggle('hidden', products.length > 0);
+        }
+
+        function editProduct(id) {
+            const product = products.find(p => p.id === id);
+            if (product) {
+                // Implementar edição
+                showToast('Edição em desenvolvimento', 'info');
             }
         }
-        if (e.target.closest('.delete-rental')) {
-            const id = +e.target.closest('.delete-rental').dataset.id;
-            if (confirm('Excluir este aluguel?')) {
-                DB.rentals = DB.rentals.filter(r => r.id !== id);
-                DB.save(); loadAll(); toast('Aluguel excluído!');
+
+        function deleteProduct(id) {
+            if (confirm('Tem certeza que deseja excluir este produto?')) {
+                products = products.filter(p => p.id !== id);
+                saveProducts();
+                renderProductTable();
+                updateDashboard();
+                showToast('Produto excluído!', 'danger');
             }
         }
-    });
-}
 
-function saveDivida() {
-    const d = {
-        id: DB.nextId(DB.debts),
-        pessoa:     document.getElementById('debt-person').value.trim(),
-        descricao:  document.getElementById('debt-description').value.trim(),
-        valorTotal: parseFloat(document.getElementById('debt-total').value),
-        valorPago:  parseFloat(document.getElementById('debt-paid').value) || 0,
-        data:       document.getElementById('debt-date').value || new Date().toISOString(),
-        pago:       document.getElementById('debt-is-paid').checked
-    };
-    if (!d.pessoa) return;
-    DB.debts.push(d); DB.save(); loadAll();
-    bootstrap.Modal.getInstance(document.getElementById('addDebtModal')).hide();
-    document.getElementById('debt-form').reset();
-    toast('Dívida registrada!');
-}
+        // Vendas
+        function filterSales() {
+            const statusFilter = document.getElementById('filter-payment-status').value;
+            const dateFilter = document.getElementById('filter-date').value;
 
-function openEditDebt(d) {
-    document.getElementById('debt-person').value      = d.pessoa;
-    document.getElementById('debt-description').value = d.descricao;
-    document.getElementById('debt-total').value       = d.valorTotal;
-    document.getElementById('debt-paid').value        = d.valorPago;
-    document.getElementById('debt-date').value        = d.data.split('T')[0];
-    document.getElementById('debt-is-paid').checked   = d.pago;
-    document.getElementById('addDebtModalLabel').innerHTML = '<i class="bi bi-pencil me-2"></i>Editar Dívida';
-    const modal = new bootstrap.Modal(document.getElementById('addDebtModal'));
-    modal.show();
-    const btn = document.getElementById('save-debt');
-    btn.textContent = 'Atualizar';
-    btn.onclick = () => {
-        d.pessoa    = document.getElementById('debt-person').value;
-        d.descricao = document.getElementById('debt-description').value;
-        d.valorTotal= parseFloat(document.getElementById('debt-total').value);
-        d.valorPago = parseFloat(document.getElementById('debt-paid').value);
-        d.data      = document.getElementById('debt-date').value;
-        d.pago      = document.getElementById('debt-is-paid').checked;
-        DB.save(); loadAll(); modal.hide();
-        document.getElementById('debt-form').reset();
-        document.getElementById('addDebtModalLabel').innerHTML = '<i class="bi bi-credit-card me-2"></i>Nova Dívida';
-        toast('Dívida atualizada!');
-        btn.textContent = 'Salvar';
-        btn.onclick = saveDivida;
-    };
-}
+            filteredSales = sales.filter(s => {
+                const statusMatch = statusFilter === 'all' || s.statusPagamento === statusFilter;
+                const dateMatch = !dateFilter || s.data.startsWith(dateFilter);
+                return statusMatch && dateMatch;
+            });
 
-function showPaymentModal(d) {
-    document.getElementById('payment-debt-id').value       = d.id;
-    document.getElementById('payment-person').value        = d.pessoa;
-    document.getElementById('payment-description').value   = d.descricao;
-    document.getElementById('payment-total').value         = fmt(d.valorTotal);
-    document.getElementById('payment-already-paid').value  = fmt(d.valorPago);
-    document.getElementById('payment-amount').value        = '';
-    new bootstrap.Modal(document.getElementById('paymentModal')).show();
-}
+            renderSalesTable();
+        }
 
-function showPaymentRentalModal(a) {
-    document.getElementById('payment-rental-id').value      = a.id;
-    document.getElementById('payment-rental-client').value  = a.cliente;
-    document.getElementById('payment-rental-product').value = a.produto;
-    document.getElementById('payment-rental-total').value   = fmt(a.valorTotal);
-    document.getElementById('payment-rental-amount').value  = '';
-    document.getElementById('payment-rental-full').checked  = true;
-    document.getElementById('partial-payment-container').style.display = 'none';
-    new bootstrap.Modal(document.getElementById('paymentRentalModal')).show();
-}
+        function clearFilters() {
+            document.getElementById('filter-payment-status').value = 'all';
+            document.getElementById('filter-date').value = '';
+            filterSales();
+        }
 
-function showReturnModal(a) {
-    document.getElementById('return-rental-id').value = a.id;
-    document.getElementById('return-client').value    = a.cliente;
-    document.getElementById('return-product').value   = a.produto;
-    document.getElementById('return-date').value      = fmtDate(a.data);
-    document.getElementById('return-days').value      = a.dias;
-    document.getElementById('return-total').value     = fmt(a.valorTotal);
-    document.getElementById('return-payment').value   = a.pago ? 'Pago' : 'Pendente';
-    new bootstrap.Modal(document.getElementById('returnModal')).show();
-}
+        function renderSalesTable() {
+            const tableBody = document.getElementById('sales-table').querySelector('tbody');
+            tableBody.innerHTML = '';
+            
+            filteredSales.forEach(s => {
+                const product = products.find(p => p.id === s.produtoId);
+                const statusBadge = s.statusPagamento === 'pago' ? 'badge-success' : 'badge-warning';
+                const row = tableBody.insertRow();
+                row.innerHTML = `
+                    <td>${new Date(s.data).toLocaleDateString('pt-BR')}</td>
+                    <td>${product ? product.nome : 'Produto Deletado'}</td>
+                    <td>${s.quantidade}</td>
+                    <td>${formatCurrency(s.valorUnitario)}</td>
+                    <td>${formatCurrency(s.valorTotal)}</td>
+                    <td><span class="badge ${statusBadge}">${s.statusPagamento}</span></td>
+                    <td>
+                        <button class="btn btn-sm btn-danger" onclick="cancelSale('${s.id}')">Cancelar</button>
+                    </td>
+                `;
+            });
+            
+            document.getElementById('no-sales-data').classList.toggle('hidden', filteredSales.length > 0);
+        }
 
-// ── CHARTS ──
-let chartR = null, chartD = null;
-function renderReportCharts() {
-    refreshDashboard();
+        function cancelSale(saleId) {
+            const sale = sales.find(s => s.id === saleId);
+            if (sale && confirm('Cancelar esta venda?')) {
+                sales = sales.filter(s => s.id !== saleId);
+                const product = products.find(p => p.id === sale.produtoId);
+                if (product) product.quantidade += sale.quantidade;
+                saveSales();
+                saveProducts();
+                filterSales();
+                updateDashboard();
+                showToast('Venda cancelada!', 'info');
+            }
+        }
 
-    const paid   = DB.rentals.filter(r=>r.pago).reduce((s,r)=>s+r.valorTotal,0);
-    const unpaid = DB.rentals.filter(r=>!r.pago).reduce((s,r)=>s+r.valorTotal,0);
-    const dPaid  = DB.debts.reduce((s,d)=>s+d.valorPago,0);
-    const dUnpaid= DB.debts.reduce((s,d)=>s+(d.valorTotal-d.valorPago),0);
+        // Relatórios
+        function updateReports() {
+            const totalSales = sales.reduce((sum, s) => sum + s.valorTotal, 0);
+            const itemsSold = sales.reduce((sum, s) => sum + s.quantidade, 0);
+            const totalStock = products.reduce((sum, p) => sum + (p.quantidade * p.preco), 0);
+            const pendingSales = sales.filter(s => s.statusPagamento === 'pendente').length;
 
-    const rcCtx = document.getElementById('rentalsChart').getContext('2d');
-    if (chartR) chartR.destroy();
-    chartR = new Chart(rcCtx, {
-        type: 'doughnut',
-        data: { labels:['Recebidos','Em Aberto'], datasets:[{ data:[paid,unpaid], backgroundColor:['#17a86e','#e03c3c'], borderWidth:0 }] },
-        options: { responsive:true, plugins:{ legend:{ position:'bottom' }, title:{ display:true, text:'Aluguéis — Recebido vs Aberto' } } }
-    });
+            document.getElementById('report-total-sales').textContent = formatCurrency(totalSales);
+            document.getElementById('report-items-sold').textContent = itemsSold;
+            document.getElementById('report-total-stock').textContent = formatCurrency(totalStock);
+            document.getElementById('report-pending-sales').textContent = pendingSales;
+        }
 
-    const dcCtx = document.getElementById('debtsChart').getContext('2d');
-    if (chartD) chartD.destroy();
-    chartD = new Chart(dcCtx, {
-        type: 'doughnut',
-        data: { labels:['Pagas','Em Aberto'], datasets:[{ data:[dPaid,dUnpaid], backgroundColor:['#17a86e','#f0a500'], borderWidth:0 }] },
-        options: { responsive:true, plugins:{ legend:{ position:'bottom' }, title:{ display:true, text:'Dívidas — Pagas vs Pendentes' } } }
-    });
-}
+        // Modals
+        function setupModals() {
+            // Adicionar Produto
+            document.getElementById('save-product').addEventListener('click', function() {
+                const name = document.getElementById('product-name').value;
+                const quantity = parseInt(document.getElementById('product-quantity').value);
+                const price = parseFloat(document.getElementById('product-price').value);
+                
+                if (name && quantity >= 0 && price > 0) {
+                    products.push({
+                        id: generateId(),
+                        nome: name,
+                        quantidade: quantity,
+                        preco: price
+                    });
+                    saveProducts();
+                    bootstrap.Modal.getInstance(document.getElementById('addProductModal')).hide();
+                    renderProductTable();
+                    updateDashboard();
+                    showToast('Produto adicionado!');
+                }
+            });
 
-// ── HELPERS ──
-function updateRentalTotal() {
-    const pn  = document.getElementById('rental-product').value;
-    const d   = parseInt(document.getElementById('rental-days').value) || 0;
-    const q   = parseInt(document.getElementById('rental-quantity').value) || 0;
-    const p   = DB.products.find(x => x.nome === pn);
-    document.getElementById('rental-total').textContent = p ? fmt(p.valorDiaria * d * q) : 'R$ 0,00';
-}
+            // Nova Venda
+            document.getElementById('save-sale').addEventListener('click', function() {
+                const productId = document.getElementById('sale-product').value;
+                const quantity = parseInt(document.getElementById('sale-quantity').value);
+                const price = parseFloat(document.getElementById('sale-price').value);
+                const status = document.getElementById('sale-payment-status').value;
+                
+                const product = products.find(p => p.id === productId);
+                if (!product || product.quantidade < quantity) {
+                    showToast('Estoque insuficiente!', 'danger');
+                    return;
+                }
+                
+                product.quantidade -= quantity;
+                sales.push({
+                    id: generateId(),
+                    produtoId: productId,
+                    quantidade: quantity,
+                    valorUnitario: price,
+                    valorTotal: quantity * price,
+                    statusPagamento: status,
+                    data: new Date().toISOString()
+                });
+                
+                saveProducts();
+                saveSales();
+                bootstrap.Modal.getInstance(document.getElementById('addSaleModal')).hide();
+                filterSales();
+                updateDashboard();
+                showToast('Venda registrada!');
+            });
 
-function fmt(v) {
-    return new Intl.NumberFormat('pt-BR',{style:'currency',currency:'BRL'}).format(v||0);
-}
+            // Entrada Estoque
+            document.getElementById('save-stock-entry').addEventListener('click', function() {
+                const productId = document.getElementById('stock-product-select').value;
+                const quantity = parseInt(document.getElementById('stock-entry-quantity').value);
+                
+                const product = products.find(p => p.id === productId);
+                if (product) {
+                    product.quantidade += quantity;
+                    saveProducts();
+                    bootstrap.Modal.getInstance(document.getElementById('stockEntryModal')).hide();
+                    renderProductTable();
+                    updateDashboard();
+                    showToast('Estoque atualizado!');
+                }
+            });
 
-function fmtDate(s) {
-    return new Date(s).toLocaleDateString('pt-BR');
-}
+            // Select de produtos para venda
+            document.getElementById('addSaleModal').addEventListener('show.bs.modal', function() {
+                const select = document.getElementById('sale-product');
+                select.innerHTML = '<option value="">Selecione um produto</option>';
+                products.forEach(p => {
+                    const option = document.createElement('option');
+                    option.value = p.id;
+                    option.textContent = `${p.nome} (Estoque: ${p.quantidade})`;
+                    option.disabled = p.quantidade <= 0;
+                    select.appendChild(option);
+                });
+            });
 
-function toast(msg, type='success') {
-    const el = document.createElement('div');
-    el.className = `toast-custom ${type}`;
-    el.textContent = msg;
-    document.body.appendChild(el);
-    setTimeout(() => { el.style.opacity='0'; el.style.transition='opacity 0.3s'; setTimeout(()=>el.remove(),300); }, 2800);
-}
-</script>
+            // Select de produtos para estoque
+            document.getElementById('stockEntryModal').addEventListener('show.bs.modal', function() {
+                const select = document.getElementById('stock-product-select');
+                select.innerHTML = '<option value="">Selecione um produto</option>';
+                products.forEach(p => {
+                    const option = document.createElement('option');
+                    option.value = p.id;
+                    option.textContent = `${p.nome} (Estoque: ${p.quantidade})`;
+                    select.appendChild(option);
+                });
+            });
+
+            // Atualizar info do produto selecionado no estoque
+            document.getElementById('stock-product-select').addEventListener('change', function() {
+                const product = products.find(p => p.id === this.value);
+                if (product) {
+                    document.getElementById('stock-product-name').value = product.nome;
+                    document.getElementById('stock-current-quantity').value = product.quantidade;
+                }
+            });
+
+            // Atualizar total da venda
+            document.getElementById('sale-quantity').addEventListener('input', updateSaleTotal);
+            document.getElementById('sale-price').addEventListener('input', updateSaleTotal);
+            document.getElementById('sale-product').addEventListener('change', function() {
+                const product = products.find(p => p.id === this.value);
+                if (product) {
+                    document.getElementById('sale-price').value = product.preco;
+                    updateSaleTotal();
+                }
+            });
+        }
+
+        function updateSaleTotal() {
+            const quantity = parseInt(document.getElementById('sale-quantity').value) || 0;
+            const price = parseFloat(document.getElementById('sale-price').value) || 0;
+            document.getElementById('sale-total').textContent = formatCurrency(quantity * price);
+        }
+
+        function populateSaleProductSelect() {
+            const select = document.getElementById('sale-product');
+            select.innerHTML = '<option value="">Selecione um produto</option>';
+            products.forEach(p => {
+                const option = document.createElement('option');
+                option.value = p.id;
+                option.textContent = `${p.nome} (Estoque: ${p.quantidade})`;
+                option.disabled = p.quantidade <= 0;
+                select.appendChild(option);
+            });
+        }
+
+        function openStockEntryModal(productId) {
+            populateStockProductSelect();
+            document.getElementById('stock-product-select').value = productId;
+            document.getElementById('stock-product-select').dispatchEvent(new Event('change'));
+            new bootstrap.Modal(document.getElementById('stockEntryModal')).show();
+        }
+
+        function populateStockProductSelect() {
+            const select = document.getElementById('stock-product-select');
+            select.innerHTML = '<option value="">Selecione um produto</option>';
+            products.forEach(p => {
+                const option = document.createElement('option');
+                option.value = p.id;
+                option.textContent = `${p.nome} (Estoque: ${p.quantidade})`;
+                select.appendChild(option);
+            });
+        }
+
+        function quickStockEntry(productId) {
+            openStockEntryModal(productId);
+        }
+
+        function openStockEntryFromLowStock() {
+            const lowStockProducts = products.filter(p => p.quantidade <= LOW_STOCK_THRESHOLD);
+            if (lowStockProducts.length > 0) {
+                populateStockProductSelect();
+                new bootstrap.Modal(document.getElementById('stockEntryModal')).show();
+            } else {
+                showToast('Nenhum produto com estoque baixo', 'info');
+            }
+        }
+
+        function showAllSales() {
+            showSection('sales');
+        }
+
+        // Relatórios CSV (simplificado)
+        function generateQuickReport() {
+            document.getElementById('report-type').value = 'sales';
+            document.getElementById('report-period').value = 'today';
+            generateCSVReport();
+        }
+
+        function generateStockReport() {
+            document.getElementById('report-type').value = 'stock';
+            document.getElementById('report-period').value = 'all';
+            generateCSVReport();
+        }
+
+        function generateSalesReport() {
+            document.getElementById('report-type').value = 'sales';
+            document.getElementById('report-period').value = 'all';
+            generateCSVReport();
+        }
+
+        document.getElementById('generate-report').addEventListener('click', generateCSVReport);
+
+        function generateCSVReport() {
+            const type = document.getElementById('report-type').value;
+            const period = document.getElementById('report-period').value;
+            
+            let csv = '';
+            let filename = '';
+            
+            if (type === 'stock') {
+                csv = 'Produto,Quantidade,Preço,Valor Total\n';
+                products.forEach(p => {
+                    csv += `"${p.nome}",${p.quantidade},${p.preco},${p.quantidade * p.preco}\n`;
+                });
+                filename = 'estoque.csv';
+            } else if (type === 'sales') {
+                csv = 'Data,Produto,Quantidade,Total,Status\n';
+                sales.forEach(s => {
+                    const product = products.find(p => p.id === s.produtoId);
+                    csv += `"${new Date(s.data).toLocaleDateString()}","${product ? product.nome : 'N/A'}",${s.quantidade},${s.valorTotal},${s.statusPagamento}\n`;
+                });
+                filename = 'vendas.csv';
+            }
+            
+            if (csv) {
+                const blob = new Blob(["\uFEFF" + csv], { type: 'text/csv;charset=utf-8;' });
+                const link = document.createElement('a');
+                link.download = filename;
+                link.href = URL.createObjectURL(blob);
+                link.click();
+                showToast('Relatório gerado!');
+            }
+        }
+    </script>
 </body>
 </html>
